@@ -1,0 +1,2378 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth dark" data-theme="dark" data-card-style="glass">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Arya Wijaya — Senior Full-Stack Developer & AI Engineer</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Konfigurasi Tailwind CSS -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- =====================================================================
+         VARIABEL CSS TEMA & GAYA VISUAL (DAPAT DIUBAH OTOMATIS OLEH STUDIO)
+         ===================================================================== -->
+    <style>
+        :root {
+            /* Skema Warna Aksen Default (Cyber Cyan) */
+            --accent-primary: #06B6D4;
+            --accent-secondary: #8B5CF6;
+            --accent-rgb: 6, 182, 212;
+            --accent-sec-rgb: 139, 92, 246;
+
+            /* Palet Mode Gelap (Dark Obsidian) */
+            --bg-main: #060913;
+            --bg-surface: #0D1323;
+            --bg-card-glass: rgba(16, 24, 44, 0.72);
+            --bg-card-solid: #0F172A;
+            --text-primary: #F8FAFC;
+            --text-secondary: #CBD5E1;
+            --text-muted: #94A3B8;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --grid-line: rgba(255, 255, 255, 0.03);
+            --terminal-bg: #090E1C;
+            --input-bg: rgba(255, 255, 255, 0.04);
+        }
+
+        /* Palet Mode Terang (Clean Light Tech) */
+        html[data-theme="light"] {
+            --bg-main: #F4F7FB;
+            --bg-surface: #FFFFFF;
+            --bg-card-glass: rgba(255, 255, 255, 0.82);
+            --bg-card-solid: #FFFFFF;
+            --text-primary: #0F172A;
+            --text-secondary: #334155;
+            --text-muted: #64748B;
+            --border-subtle: rgba(15, 23, 42, 0.09);
+            --grid-line: rgba(15, 23, 42, 0.045);
+            --terminal-bg: #0F172A;
+            --input-bg: rgba(15, 23, 42, 0.04);
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            transition: background-color 0.35s ease, color 0.35s ease;
+        }
+
+        /* Pola Grid Latar Belakang */
+        .bg-cyber-grid {
+            background-size: 48px 48px;
+            background-image: 
+                linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+        }
+
+        /* Efek Glassmorphism & Solid Card Dinamis */
+        .glass {
+            background: var(--bg-card-glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .theme-card {
+            background: var(--bg-card-glass);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid var(--border-subtle);
+            transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        html[data-card-style="solid"] .theme-card {
+            background: var(--bg-card-solid);
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.08);
+        }
+
+        .theme-card:hover {
+            border-color: rgba(var(--accent-rgb), 0.55);
+            box-shadow: 0 14px 36px -10px rgba(var(--accent-rgb), 0.22);
+            transform: translateY(-4px);
+        }
+
+        /* Utilitas Warna Aksen Dinamis */
+        .text-accent { color: var(--accent-primary); }
+        .text-accent-sec { color: var(--accent-secondary); }
+        .bg-accent { background-color: var(--accent-primary); }
+        .border-accent { border-color: rgba(var(--accent-rgb), 0.4); }
+        .bg-accent-soft { background-color: rgba(var(--accent-rgb), 0.14); }
+        .bg-accent-sec-soft { background-color: rgba(var(--accent-sec-rgb), 0.14); }
+
+        .btn-accent-gradient {
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            color: #ffffff;
+            box-shadow: 0 8px 24px -6px rgba(var(--accent-rgb), 0.4);
+        }
+        .btn-accent-gradient:hover {
+            filter: brightness(1.08);
+            box-shadow: 0 12px 28px -4px rgba(var(--accent-rgb), 0.55);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .theme-text-primary { color: var(--text-primary); }
+        .theme-text-secondary { color: var(--text-secondary); }
+        .theme-text-muted { color: var(--text-muted); }
+        .theme-border { border-color: var(--border-subtle); }
+        .theme-input {
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-primary);
+        }
+        .theme-input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 2px rgba(var(--accent-rgb), 0.2);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 7px; height: 7px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(var(--accent-rgb), 0.35); border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-primary); }
+
+        /* Gaya Bingkai Foto Profil Dinamis */
+        .photo-frame-container {
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        html[data-photo-shape="rounded"] .photo-frame-container {
+            border-radius: 1.5rem;
+        }
+        html[data-photo-shape="circle"] .photo-frame-container {
+            border-radius: 9999px;
+        }
+        html[data-photo-shape="hexagon"] .photo-frame-container {
+            border-radius: 0.75rem;
+            clip-path: polygon(50% 0%, 95% 22%, 95% 78%, 50% 100%, 5% 78%, 5% 22%);
+        }
+
+        .profile-photo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.14); /* Memangkas pinggiran putih foto fisik secara otomatis */
+            transition: object-position 0.2s ease, transform 0.4s ease;
+        }
+        .group:hover .profile-photo-img {
+            transform: scale(1.18);
+        }
+
+        /* Animasi Reveal saat Scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: all 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mode Cetak / CV Print Friendly */
+        @media print {
+            body {
+                background: #ffffff !important;
+                color: #0f172a !important;
+            }
+            #neural-canvas, .no-print, nav, #contact-form-container, footer, #studio-drawer, #studio-fab {
+                display: none !important;
+            }
+            .glass, .theme-card {
+                background: #ffffff !important;
+                border: 1px solid #cbd5e1 !important;
+                box-shadow: none !important;
+                color: #0f172a !important;
+            }
+            .text-gradient {
+                background: none !important;
+                -webkit-text-fill-color: #0284c7 !important;
+                color: #0284c7 !important;
+            }
+            p, span, li, h1, h2, h3, h4 {
+                color: #1e293b !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-cyber-grid antialiased selection:bg-cyan-500/30 relative">
+
+    <!-- Ambient Glow Orbs -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0 no-print">
+        <div class="absolute -top-40 -left-40 w-96 h-96 rounded-full blur-[130px] opacity-20" style="background: var(--accent-primary);"></div>
+        <div class="absolute top-1/3 -right-40 w-[480px] h-[480px] rounded-full blur-[140px] opacity-20" style="background: var(--accent-secondary);"></div>
+    </div>
+
+    <!-- =====================================================================
+         1. NAVIGASI STICKY RESPONSIF
+         ===================================================================== -->
+    <header class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 no-print" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+            <nav class="glass rounded-2xl px-5 py-3.5 flex items-center justify-between shadow-xl">
+                <!-- Brand Logo -->
+                <a href="#beranda" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl p-[1.5px] shadow-md group-hover:scale-105 transition-transform" style="background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));">
+                        <div class="w-full h-full rounded-[10px] flex items-center justify-center font-mono font-bold text-accent text-base" style="background: var(--bg-main);" id="nav-initials">
+                            AW
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-bold theme-text-primary tracking-tight text-base leading-none" id="nav-name">Arya Wijaya</span>
+                        <span class="font-mono text-[11px] text-accent mt-1" id="nav-handle">portfolio // v2026</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Menu Links -->
+                <div class="hidden lg:flex items-center gap-1">
+                    <a href="#beranda" class="px-3.5 py-2 rounded-xl text-sm font-medium theme-text-secondary hover:text-accent transition-colors">Beranda</a>
+                    <a href="#tentang" class="px-3.5 py-2 rounded-xl text-sm font-medium theme-text-secondary hover:text-accent transition-colors">Tentang</a>
+                    <a href="#keahlian" class="px-3.5 py-2 rounded-xl text-sm font-medium theme-text-secondary hover:text-accent transition-colors">Keahlian</a>
+                    <a href="#proyek" class="px-3.5 py-2 rounded-xl text-sm font-medium theme-text-secondary hover:text-accent transition-colors">Proyek</a>
+                    <a href="#pengalaman" class="px-3.5 py-2 rounded-xl text-sm font-medium theme-text-secondary hover:text-accent transition-colors">Pengalaman</a>
+                    <a href="#kontak" class="px-3.5 py-2 rounded-xl text-sm font-medium theme-text-secondary hover:text-accent transition-colors">Kontak</a>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex items-center gap-2.5">
+                    <button onclick="openStudioDrawer('design')" class="hidden md:inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl glass hover:border-accent theme-text-primary text-xs font-semibold transition-all cursor-pointer" title="Buka Studio Kustomisasi">
+                        <i data-lucide="palette" class="w-4 h-4 text-accent"></i>
+                        <span>Studio Tema</span>
+                    </button>
+
+                    <button onclick="handleDownloadCV()" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl btn-accent-gradient text-xs sm:text-sm font-semibold transition-all active:scale-95 cursor-pointer">
+                        <i data-lucide="printer" class="w-4 h-4"></i>
+                        <span>Cetak CV</span>
+                    </button>
+
+                    <!-- Mobile Menu Toggle -->
+                    <button id="mobile-menu-btn" aria-label="Buka Menu" class="lg:hidden p-2.5 rounded-xl glass theme-text-primary transition-colors">
+                        <i data-lucide="menu" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </nav>
+
+            <!-- Mobile Dropdown Menu -->
+            <div id="mobile-menu" class="hidden lg:hidden mt-2 glass rounded-2xl p-4 shadow-2xl">
+                <div class="flex flex-col space-y-1">
+                    <a href="#beranda" class="mobile-nav-link px-4 py-2.5 rounded-xl text-sm font-medium theme-text-primary hover:text-accent">Beranda</a>
+                    <a href="#tentang" class="mobile-nav-link px-4 py-2.5 rounded-xl text-sm font-medium theme-text-primary hover:text-accent">Tentang Saya</a>
+                    <a href="#keahlian" class="mobile-nav-link px-4 py-2.5 rounded-xl text-sm font-medium theme-text-primary hover:text-accent">Keahlian Teknis</a>
+                    <a href="#proyek" class="mobile-nav-link px-4 py-2.5 rounded-xl text-sm font-medium theme-text-primary hover:text-accent">Proyek Unggulan</a>
+                    <a href="#pengalaman" class="mobile-nav-link px-4 py-2.5 rounded-xl text-sm font-medium theme-text-primary hover:text-accent">Pengalaman & Pendidikan</a>
+                    <a href="#kontak" class="mobile-nav-link px-4 py-2.5 rounded-xl text-sm font-medium theme-text-primary hover:text-accent">Kontak</a>
+                    <div class="pt-2 border-t theme-border flex gap-2">
+                        <button onclick="openStudioDrawer('bio'); document.getElementById('mobile-menu').classList.add('hidden');" class="flex-1 py-2.5 px-3 rounded-xl glass text-xs font-semibold theme-text-primary flex items-center justify-center gap-1.5">
+                            <i data-lucide="sliders" class="w-4 h-4 text-accent"></i>
+                            <span>Edit Biodata</span>
+                        </button>
+                        <button onclick="handleDownloadCV()" class="flex-1 py-2.5 px-3 rounded-xl btn-accent-gradient text-xs font-semibold flex items-center justify-center gap-1.5">
+                            <i data-lucide="printer" class="w-4 h-4"></i>
+                            <span>Cetak CV</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- =====================================================================
+         2. HERO SECTION DENGAN VISUALISASI NEURAL NETWORK INTERAKTIF
+         ===================================================================== -->
+    <section id="beranda" class="relative min-h-screen flex items-center pt-28 pb-20 overflow-hidden z-10">
+        <canvas id="neural-canvas" class="absolute inset-0 w-full h-full pointer-events-none opacity-65 no-print"></canvas>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Kolom Kiri: Perkenalan & CTA -->
+                <!-- Kolom Kanan: Kartu Foto Profil Futuristik & Terminal Kode Interaktif -->
+                <div class="lg:col-span-5 animate-float space-y-5">
+                    <!-- Kartu Foto Profil HUD Futuristik -->
+                    <div class="theme-card rounded-3xl p-4 sm:p-5 shadow-2xl relative group overflow-hidden">
+                        <div class="flex flex-col sm:flex-row items-center gap-5">
+                            <!-- Bingkai Foto Utama -->
+                            <div class="relative shrink-0">
+                                <div class="w-36 h-44 sm:w-40 sm:h-48 p-[2.5px] shadow-xl photo-frame-container" style="background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));">
+                                    <div class="w-full h-full overflow-hidden photo-frame-container bg-slate-900 relative">
+                                        <img id="hero-profile-photo" src="1000183986_c14b42db7cdb06929ba31b392a1295cc-22_8_2025, 11.20.42.jpg" alt="Foto Profil Pribadi" class="profile-photo-img" onerror="this.src='https://placehold.co/400x480/0F172A/06B6D4?text=Foto+Profil'">
+                                        <!-- Efek Scanline Halus -->
+                                        <div class="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/35 via-transparent to-transparent"></div>
+                                    </div>
+                                </div>
+                                <!-- Badge Terverifikasi -->
+                                <div class="absolute -bottom-2 -right-2 px-2.5 py-1 rounded-full glass border-accent text-[10px] font-mono font-bold text-accent flex items-center gap-1 shadow-lg">
+                                    <i data-lucide="badge-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                                    <span>VERIFIED</span>
+                                </div>
+                            </div>
+
+                            <!-- Info Ringkas Samping Foto -->
+                            <div class="flex-1 text-center sm:text-left space-y-2.5 min-w-0">
+                                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-accent-soft text-accent font-mono text-[11px] font-semibold">
+                                    <i data-lucide="user-check" class="w-3.5 h-3.5"></i>
+                                    <span>IDENTITAS DIGITAL</span>
+                                </div>
+                                <h2 class="text-xl font-bold theme-text-primary truncate" id="card-profile-name">Arya Wijaya</h2>
+                                <p class="text-xs theme-text-muted font-mono truncate" id="card-profile-location">Jakarta, Indonesia</p>
+                                <div class="pt-1 flex flex-wrap justify-center sm:justify-start gap-2">
+                                    <button onclick="openStudioDrawer('bio')" class="px-3 py-1.5 rounded-xl glass hover:border-accent text-[11px] font-mono text-accent font-semibold inline-flex items-center gap-1.5 transition-all cursor-pointer">
+                                        <i data-lucide="camera" class="w-3.5 h-3.5"></i>
+                                        <span>Ganti Foto</span>
+                                    </button>
+                                    <button onclick="openStudioDrawer('design')" class="px-3 py-1.5 rounded-xl glass hover:border-accent text-[11px] font-mono theme-text-secondary inline-flex items-center gap-1.5 transition-all cursor-pointer">
+                                        <i data-lucide="frame" class="w-3.5 h-3.5"></i>
+                                        <span>Bingkai</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Terminal Kode Interaktif (Selalu gelap agar kontras kode tajam) -->
+                    <div class="theme-card rounded-3xl p-1.5 shadow-2xl relative">
+                        <div class="bg-[#090E1C] rounded-[22px] overflow-hidden border border-white/10">
+                            <!-- Header Window Terminal -->
+                            <div class="px-4 py-3 bg-white/[0.03] border-b border-white/10 flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-3 h-3 rounded-full bg-rose-500/85"></span>
+                                    <span class="w-3 h-3 rounded-full bg-amber-400/85"></span>
+                                    <span class="w-3 h-3 rounded-full bg-emerald-500/85"></span>
+                                </div>
+                                <span class="font-mono text-xs text-slate-400">profile_config.ts</span>
+                                <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-soft text-accent border-accent">LIVE</span>
+                            </div>
+
+                            <!-- Isi Kode Interaktif Sinkron dengan Biodata -->
+                            <div class="p-5 sm:p-6 font-mono text-xs sm:text-sm leading-relaxed overflow-x-auto text-slate-300">
+                                <div class="text-slate-500">// Konfigurasi profil aktif</div>
+                                <div class="mt-1">
+                                    <span class="text-violet-400">const</span> <span class="text-cyan-300">biodata</span> = {
+                                </div>
+                                <div class="pl-4">
+                                    nama: <span class="text-emerald-400">"<span id="term-name">Arya Wijaya</span>"</span>,
+                                </div>
+                                <div class="pl-4">
+                                    lokasi: <span class="text-emerald-400">"<span id="term-location">Jakarta, Indonesia</span>"</span>,
+                                </div>
+                                <div class="pl-4">
+                                    pengalaman: <span class="text-cyan-400" id="term-exp">6</span> <span class="text-slate-500">// tahun</span>,
+                                </div>
+                                <div class="pl-4">
+                                    proyekSelesai: <span class="text-cyan-400" id="term-projects">48</span>,
+                                </div>
+                                <div class="pl-4">
+                                    status: <span class="text-amber-300">"Siap Berkolaborasi"</span>
+                                </div>
+                                <div>};</div>
+
+                                <!-- Live Telemetry Bar -->
+                                <div class="mt-5 pt-4 border-t border-white/10 grid grid-cols-3 gap-2 text-center">
+                                    <div class="p-2 rounded-xl bg-white/[0.03]">
+                                        <div class="text-[10px] text-slate-400">DESAIN</div>
+                                        <div class="text-accent font-bold text-xs mt-0.5 uppercase" id="term-theme-name">CYBER CYAN</div>
+                                    </div>
+                                    <div class="p-2 rounded-xl bg-white/[0.03]">
+                                        <div class="text-[10px] text-slate-400">MODE</div>
+                                        <div class="text-emerald-400 font-bold text-xs mt-0.5 uppercase" id="term-mode-name">DARK</div>
+                                    </div>
+                                    <div class="p-2 rounded-xl bg-white/[0.03]">
+                                        <div class="text-[10px] text-slate-400">KARTU</div>
+                                        <div class="text-violet-400 font-bold text-xs mt-0.5 uppercase" id="term-card-name">GLASS</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         3. TENTANG SAYA & STATISTIK PENCAPAIAN
+         ===================================================================== -->
+    <section id="tentang" class="py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4">
+                    <div>
+                        <span class="font-mono text-xs sm:text-sm text-accent uppercase tracking-widest">// 01. TENTANG SAYA</span>
+                        <h2 class="text-3xl sm:text-4xl font-bold theme-text-primary mt-2">Profil & Filosofi Profesional</h2>
+                    </div>
+                    <p class="theme-text-muted text-sm max-w-md">
+                        Ringkasan latar belakang, keahlian inti, dan pencapaian yang telah diraih sepanjang karier.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                    <!-- Kartu Narasi Profil -->
+                    <div class="lg:col-span-7 theme-card rounded-3xl p-7 sm:p-9 flex flex-col justify-between">
+                        <div class="space-y-5">
+                            <div class="flex flex-col sm:flex-row sm:items-center gap-5 pb-5 border-b theme-border">
+                                <!-- Foto Sekunder di Bagian Tentang Saya -->
+                                <div class="w-20 h-24 sm:w-24 sm:h-28 p-[2px] shrink-0 photo-frame-container shadow-lg" style="background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));">
+                                    <div class="w-full h-full overflow-hidden photo-frame-container bg-slate-900">
+                                        <img id="about-profile-photo" src="1000183986_c14b42db7cdb06929ba31b392a1295cc-22_8_2025, 11.20.42.jpg" alt="Foto Profil Tentang Saya" class="profile-photo-img" onerror="this.src='https://placehold.co/300x360/0F172A/06B6D4?text=Foto'">
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-accent-sec-soft text-accent-sec font-mono text-xs font-semibold">
+                                        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                                        <span>Ringkasan Biografi</span>
+                                    </div>
+                                    <h3 class="text-xl sm:text-2xl font-bold theme-text-primary" id="about-headline">
+                                        Membangun solusi digital modern yang presisi, skalabel, dan berpusat pada pengguna.
+                                    </h3>
+                                </div>
+                            </div>
+                            <p class="theme-text-secondary leading-relaxed text-sm sm:text-base whitespace-pre-line" id="about-bio">
+                                Dengan pengalaman lebih dari 6 tahun di industri teknologi, saya telah membantu berbagai perusahaan rintisan (startup) hingga korporasi merancang aplikasi web modern dan mengintegrasikan kecerdasan buatan ke dalam alur kerja bisnis mereka.
+
+                                Saya percaya bahwa kode yang bersih harus berjalan beriringan dengan desain visual yang elegan. Setiap piksel dan setiap baris algoritma dirancang untuk memberikan kecepatan akses maksimal serta kemudahan pemeliharaan jangka panjang.
+                            </p>
+                        </div>
+
+                        <!-- Info Kontak Cepat -->
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-8 mt-8 border-t theme-border">
+                            <div class="flex items-start gap-3">
+                                <div class="p-2.5 rounded-xl bg-accent-soft text-accent">
+                                    <i data-lucide="map-pin" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs theme-text-muted">Lokasi</div>
+                                    <div class="text-sm font-semibold theme-text-primary" id="about-location">Jakarta, Indonesia</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="p-2.5 rounded-xl bg-accent-sec-soft text-accent-sec">
+                                    <i data-lucide="mail" class="w-4 h-4"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <div class="text-xs theme-text-muted">Email Resmi</div>
+                                    <div class="text-sm font-semibold theme-text-primary truncate" id="about-email">arya@wijayatech.id</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="p-2.5 rounded-xl bg-emerald-500/15 text-emerald-500">
+                                    <i data-lucide="phone" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs theme-text-muted">Telepon / WA</div>
+                                    <div class="text-sm font-semibold theme-text-primary" id="about-phone">+62 812-3456-7890</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grid 4 Kartu Statistik Pencapaian -->
+                    <div class="lg:col-span-5 grid grid-cols-2 gap-4 sm:gap-5">
+                        <div class="theme-card rounded-3xl p-6 flex flex-col justify-between group">
+                            <div class="w-11 h-11 rounded-2xl bg-accent-soft text-accent flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="briefcase" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <div class="text-3xl sm:text-4xl font-extrabold theme-text-primary tracking-tight" id="stat-exp">6+</div>
+                                <div class="text-xs sm:text-sm theme-text-muted mt-1 font-medium">Tahun Pengalaman</div>
+                            </div>
+                        </div>
+
+                        <div class="theme-card rounded-3xl p-6 flex flex-col justify-between group">
+                            <div class="w-11 h-11 rounded-2xl bg-accent-sec-soft text-accent-sec flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="layers" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <div class="text-3xl sm:text-4xl font-extrabold theme-text-primary tracking-tight" id="stat-projects">48+</div>
+                                <div class="text-xs sm:text-sm theme-text-muted mt-1 font-medium">Proyek Selesai</div>
+                            </div>
+                        </div>
+
+                        <div class="theme-card rounded-3xl p-6 flex flex-col justify-between group">
+                            <div class="w-11 h-11 rounded-2xl bg-emerald-500/15 text-emerald-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="users" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <div class="text-3xl sm:text-4xl font-extrabold theme-text-primary tracking-tight" id="stat-clients">32+</div>
+                                <div class="text-xs sm:text-sm theme-text-muted mt-1 font-medium">Klien & Mitra Puas</div>
+                            </div>
+                        </div>
+
+                        <div class="theme-card rounded-3xl p-6 flex flex-col justify-between group">
+                            <div class="w-11 h-11 rounded-2xl bg-amber-500/15 text-amber-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="award" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <div class="text-3xl sm:text-4xl font-extrabold theme-text-primary tracking-tight" id="stat-awards">11</div>
+                                <div class="text-xs sm:text-sm theme-text-muted mt-1 font-medium">Sertifikasi & Penghargaan</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         4. KEAHLIAN TEKNIS (SKILLS MATRIX)
+         ===================================================================== -->
+    <section id="keahlian" class="py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4">
+                    <div>
+                        <span class="font-mono text-xs sm:text-sm text-accent uppercase tracking-widest">// 02. KEAHLIAN & TEKNOLOGI</span>
+                        <h2 class="text-3xl sm:text-4xl font-bold theme-text-primary mt-2">Kompetensi & Perangkat Teknis</h2>
+                    </div>
+                    <button onclick="openStudioDrawer('items')" class="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl glass border-accent text-accent text-xs font-mono font-semibold hover:bg-accent-soft transition-all cursor-pointer no-print">
+                        <i data-lucide="plus-circle" class="w-4 h-4"></i>
+                        <span>Kelola Keahlian</span>
+                    </button>
+                </div>
+
+                <!-- Grid Kategori Keahlian (Dirender dinamis) -->
+                <div id="skills-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         5. PROYEK UNGGULAN (PORTFOLIO SHOWCASE + FILTER + MODAL)
+         ===================================================================== -->
+    <section id="proyek" class="py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                    <div>
+                        <span class="font-mono text-xs sm:text-sm text-accent uppercase tracking-widest">// 03. KARYA TERPILIH</span>
+                        <h2 class="text-3xl sm:text-4xl font-bold theme-text-primary mt-2">Proyek Unggulan</h2>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-3 no-print">
+                        <!-- Filter Kategori Dinamis -->
+                        <div class="flex flex-wrap items-center gap-1.5 glass p-1.5 rounded-2xl" id="project-filters"></div>
+                        
+                        <button onclick="openStudioDrawer('items')" class="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl glass border-accent text-accent text-xs font-mono font-semibold hover:bg-accent-soft transition-all cursor-pointer">
+                            <i data-lucide="plus" class="w-4 h-4"></i>
+                            <span>Tambah Proyek</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Grid Kartu Proyek -->
+                <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         6. PENGALAMAN KERJA & PENDIDIKAN (TIMELINE VERTIKAL)
+         ===================================================================== -->
+    <section id="pengalaman" class="py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+                    <div>
+                        <span class="font-mono text-xs sm:text-sm text-accent uppercase tracking-widest">// 04. REKAM JEJAK</span>
+                        <h2 class="text-3xl sm:text-4xl font-bold theme-text-primary mt-2">Pengalaman Kerja & Pendidikan</h2>
+                    </div>
+                    <button onclick="openStudioDrawer('items')" class="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl glass border-accent text-accent text-xs font-mono font-semibold hover:bg-accent-soft transition-all cursor-pointer no-print">
+                        <i data-lucide="edit" class="w-4 h-4"></i>
+                        <span>Kelola Riwayat</span>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Kolom Pengalaman Kerja -->
+                    <div>
+                        <div class="flex items-center gap-3 mb-8">
+                            <div class="w-10 h-10 rounded-xl bg-accent-soft text-accent flex items-center justify-center">
+                                <i data-lucide="building-2" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="text-xl font-bold theme-text-primary">Pengalaman Profesional</h3>
+                        </div>
+
+                        <div id="experience-timeline" class="relative pl-6 border-l-2 theme-border space-y-8"></div>
+                    </div>
+
+                    <!-- Kolom Pendidikan -->
+                    <div>
+                        <div class="flex items-center gap-3 mb-8">
+                            <div class="w-10 h-10 rounded-xl bg-accent-sec-soft text-accent-sec flex items-center justify-center">
+                                <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="text-xl font-bold theme-text-primary">Riwayat Pendidikan</h3>
+                        </div>
+
+                        <div id="education-timeline" class="relative pl-6 border-l-2 theme-border space-y-8"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         7. SERTIFIKASI & PENGHARGAAN
+         ===================================================================== -->
+    <section id="sertifikasi" class="py-20 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal">
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+                    <div>
+                        <span class="font-mono text-xs sm:text-sm text-accent uppercase tracking-widest">// 05. KREDENSIAL</span>
+                        <h2 class="text-2xl sm:text-3xl font-bold theme-text-primary mt-2">Sertifikasi & Penghargaan</h2>
+                    </div>
+                    <span class="text-xs font-mono theme-text-muted">Kredensial terverifikasi</span>
+                </div>
+
+                <div id="certifications-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         8. KONTAK & FOOTER
+         ===================================================================== -->
+    <section id="kontak" class="py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal">
+                <div class="theme-card rounded-3xl p-8 sm:p-12 relative overflow-hidden">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+                        <!-- Informasi Kontak & Sosial Media -->
+                        <div class="lg:col-span-5 space-y-6">
+                            <div>
+                                <span class="font-mono text-xs text-accent uppercase tracking-widest">// 06. MARI TERHUBUNG</span>
+                                <h2 class="text-3xl sm:text-4xl font-bold theme-text-primary mt-2">Mulai Kolaborasi Baru</h2>
+                                <p class="theme-text-secondary text-sm sm:text-base mt-3 leading-relaxed">
+                                    Tertarik berdiskusi mengenai proyek baru, peluang kerja sama, atau konsultasi teknologi? Hubungi saya melalui saluran di bawah ini.
+                                </p>
+                            </div>
+
+                            <!-- Detail Kontak Langsung + Tombol Salin Email -->
+                            <div class="space-y-4 pt-2">
+                                <div class="p-4 rounded-2xl glass flex items-center justify-between gap-3">
+                                    <div class="flex items-center gap-3 min-w-0">
+                                        <div class="w-10 h-10 rounded-xl bg-accent-soft text-accent flex items-center justify-center shrink-0">
+                                            <i data-lucide="mail" class="w-5 h-5"></i>
+                                        </div>
+                                        <div class="truncate">
+                                            <div class="text-xs theme-text-muted">Email Langsung</div>
+                                            <div id="contact-email-display" class="text-sm font-semibold theme-text-primary truncate">arya@wijayatech.id</div>
+                                        </div>
+                                    </div>
+                                    <button onclick="copyEmail()" class="px-3.5 py-2 rounded-xl bg-accent-soft text-accent text-xs font-mono font-semibold hover:opacity-80 transition-opacity shrink-0 cursor-pointer" title="Salin Email">
+                                        Salin
+                                    </button>
+                                </div>
+
+                                <div class="p-4 rounded-2xl glass flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-accent-sec-soft text-accent-sec flex items-center justify-center shrink-0">
+                                        <i data-lucide="phone" class="w-5 h-5"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs theme-text-muted">Telepon / WhatsApp</div>
+                                        <div id="contact-phone-display" class="text-sm font-semibold theme-text-primary">+62 812-3456-7890</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tautan Sosial Media Dinamis -->
+                            <div class="pt-2">
+                                <div class="text-xs font-mono theme-text-muted mb-3">MEDIA SOSIAL & TAUTAN</div>
+                                <div class="flex items-center gap-3" id="social-links-container">
+                                    <a id="social-github" href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="w-11 h-11 rounded-xl glass hover:border-accent flex items-center justify-center theme-text-secondary hover:text-accent transition-all">
+                                        <i data-lucide="github" class="w-5 h-5"></i>
+                                    </a>
+                                    <a id="social-linkedin" href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="w-11 h-11 rounded-xl glass hover:border-accent flex items-center justify-center theme-text-secondary hover:text-accent transition-all">
+                                        <i data-lucide="linkedin" class="w-5 h-5"></i>
+                                    </a>
+                                    <a id="social-website" href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram / Website" class="w-11 h-11 rounded-xl glass hover:border-accent flex items-center justify-center theme-text-secondary hover:text-accent transition-all">
+                                        <i data-lucide="globe" class="w-5 h-5"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Formulir Kontak Interaktif -->
+                        <div id="contact-form-container" class="lg:col-span-7">
+                            <form id="contact-form" class="space-y-4 glass p-6 sm:p-8 rounded-2xl">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label for="sender-name" class="block text-xs font-mono theme-text-secondary mb-2">NAMA LENGKAP *</label>
+                                        <input type="text" id="sender-name" required placeholder="Contoh: Budi Santoso" class="w-full px-4 py-3 rounded-xl theme-input text-sm transition-colors">
+                                    </div>
+                                    <div>
+                                        <label for="sender-email" class="block text-xs font-mono theme-text-secondary mb-2">ALAMAT EMAIL *</label>
+                                        <input type="email" id="sender-email" required placeholder="budi@perusahaan.com" class="w-full px-4 py-3 rounded-xl theme-input text-sm transition-colors">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="sender-subject" class="block text-xs font-mono theme-text-secondary mb-2">TOPIK KOLABORASI</label>
+                                    <select id="sender-subject" class="w-full px-4 py-3 rounded-xl theme-input text-sm transition-colors">
+                                        <option value="Pengembangan Web / Aplikasi">Pengembangan Web / Aplikasi</option>
+                                        <option value="Integrasi AI & Otomasi">Integrasi AI & Otomasi Data</option>
+                                        <option value="Desain UI/UX & Sistem Desain">Desain UI/UX & Sistem Desain</option>
+                                        <option value="Konsultasi Teknis / Lainnya">Konsultasi Teknis / Lainnya</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label for="sender-message" class="block text-xs font-mono theme-text-secondary mb-2">PESAN ANDA *</label>
+                                    <textarea id="sender-message" rows="4" required placeholder="Tuliskan detail pesan atau kebutuhan kolaborasi Anda..." class="w-full px-4 py-3 rounded-xl theme-input text-sm transition-colors resize-none"></textarea>
+                                </div>
+
+                                <button type="submit" class="w-full py-3.5 px-6 rounded-xl btn-accent-gradient font-semibold text-sm sm:text-base flex items-center justify-center gap-2 transition-all active:scale-[0.99] cursor-pointer">
+                                    <i data-lucide="send" class="w-4 h-4"></i>
+                                    <span>Kirim Pesan Sekarang</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t theme-border py-8 relative z-10 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm theme-text-muted">
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-accent"></span>
+                <span>&copy; 2026 <strong class="theme-text-primary" id="footer-name">Arya Wijaya</strong>. Seluruh hak cipta dilindungi.</span>
+            </div>
+            <div class="font-mono text-xs">
+                Portofolio Interaktif &bull; Kustomisasi Mandiri
+            </div>
+        </div>
+    </footer>
+
+    <!-- =====================================================================
+         MODAL DETAIL PROYEK
+         ===================================================================== -->
+    <div id="project-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-6 bg-black/75 backdrop-blur-md no-print" role="dialog" aria-modal="true">
+        <div class="glass rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative" style="background: var(--bg-surface);">
+            <button onclick="closeProjectModal()" aria-label="Tutup Modal" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full glass hover:bg-accent-soft theme-text-primary flex items-center justify-center transition-colors cursor-pointer">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div id="modal-banner" class="h-44 sm:h-52 w-full relative overflow-hidden flex items-center justify-center border-b theme-border"></div>
+
+            <div class="p-6 sm:p-8 space-y-6">
+                <div>
+                    <div class="flex flex-wrap items-center gap-2 mb-2">
+                        <span id="modal-category" class="px-3 py-1 rounded-full text-xs font-mono bg-accent-soft text-accent font-semibold">Web App</span>
+                        <span id="modal-year" class="text-xs font-mono theme-text-muted">2026</span>
+                    </div>
+                    <h3 id="modal-title" class="text-2xl sm:text-3xl font-bold theme-text-primary">Judul Proyek</h3>
+                    <p id="modal-desc" class="theme-text-secondary text-sm sm:text-base mt-3 leading-relaxed"></p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="p-4 rounded-2xl glass">
+                        <div class="flex items-center gap-2 text-amber-500 font-mono text-xs font-semibold mb-1.5">
+                            <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+                            <span>TANTANGAN UTAMA</span>
+                        </div>
+                        <p id="modal-challenge" class="text-xs sm:text-sm theme-text-secondary leading-relaxed"></p>
+                    </div>
+                    <div class="p-4 rounded-2xl glass">
+                        <div class="flex items-center gap-2 text-emerald-500 font-mono text-xs font-semibold mb-1.5">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i>
+                            <span>SOLUSI & DAMPAK</span>
+                        </div>
+                        <p id="modal-solution" class="text-xs sm:text-sm theme-text-secondary leading-relaxed"></p>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="text-xs font-mono theme-text-muted mb-2.5">TEKNOLOGI YANG DIGUNAKAN</div>
+                    <div id="modal-tech" class="flex flex-wrap gap-2"></div>
+                </div>
+
+                <div class="pt-4 border-t theme-border flex flex-wrap items-center gap-3">
+                    <a id="modal-demo-link" href="#" target="_blank" rel="noopener noreferrer" class="flex-1 min-w-[140px] py-3 px-5 rounded-xl btn-accent-gradient font-semibold text-sm flex items-center justify-center gap-2 transition-all">
+                        <i data-lucide="external-link" class="w-4 h-4"></i>
+                        <span>Lihat Live Demo</span>
+                    </a>
+                    <a id="modal-repo-link" href="#" target="_blank" rel="noopener noreferrer" class="flex-1 min-w-[140px] py-3 px-5 rounded-xl glass hover:border-accent theme-text-primary font-semibold text-sm flex items-center justify-center gap-2 transition-all">
+                        <i data-lucide="github" class="w-4 h-4"></i>
+                        <span>Kode Sumber</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         TOMBOL MELAYANG & DRAWER STUDIO KUSTOMISASI & EDITOR BIODATA
+         ===================================================================== -->
+    <button id="studio-fab" onclick="openStudioDrawer('design')" class="fixed bottom-5 right-5 z-40 flex items-center gap-2.5 px-5 py-3.5 rounded-full btn-accent-gradient text-xs sm:text-sm font-bold shadow-2xl hover:scale-105 active:scale-95 transition-all cursor-pointer no-print">
+        <i data-lucide="sliders" class="w-4 h-4"></i>
+        <span>Studio Kustomisasi & Biodata</span>
+    </button>
+
+    <!-- Drawer Studio Kustomisasi (Slide-Over Panel) -->
+    <div id="studio-drawer" class="fixed inset-0 z-50 hidden no-print" role="dialog" aria-modal="true">
+        <!-- Backdrop -->
+        <div onclick="closeStudioDrawer()" class="fixed inset-0 bg-black/65 backdrop-blur-sm transition-opacity"></div>
+
+        <!-- Panel Samping Kanan -->
+        <aside class="fixed top-0 right-0 bottom-0 w-full max-w-lg shadow-2xl border-l theme-border flex flex-col z-10" style="background: var(--bg-surface);">
+            <!-- Header Studio -->
+            <div class="px-6 py-4 border-b theme-border flex items-center justify-between shrink-0">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl btn-accent-gradient flex items-center justify-center">
+                        <i data-lucide="sparkles" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold theme-text-primary text-base leading-none">Studio Kustomisasi</h3>
+                        <p class="text-[11px] font-mono theme-text-muted mt-1">Ubah desain & isi biodata secara langsung</p>
+                    </div>
+                </div>
+                <button onclick="closeStudioDrawer()" aria-label="Tutup Studio" class="p-2 rounded-xl glass theme-text-secondary hover:text-accent cursor-pointer">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Navigasi Tab Studio -->
+            <div class="px-6 pt-3 border-b theme-border flex gap-1.5 shrink-0">
+                <button onclick="switchStudioTab('design')" id="tab-btn-design" class="studio-tab-btn px-3.5 py-2.5 rounded-t-xl text-xs font-mono font-semibold border-b-2 border-accent text-accent cursor-pointer">
+                    1. Desain & Tema
+                </button>
+                <button onclick="switchStudioTab('bio')" id="tab-btn-bio" class="studio-tab-btn px-3.5 py-2.5 rounded-t-xl text-xs font-mono font-medium border-b-2 border-transparent theme-text-muted hover:theme-text-primary cursor-pointer">
+                    2. Biodata & Profil
+                </button>
+                <button onclick="switchStudioTab('items')" id="tab-btn-items" class="studio-tab-btn px-3.5 py-2.5 rounded-t-xl text-xs font-mono font-medium border-b-2 border-transparent theme-text-muted hover:theme-text-primary cursor-pointer">
+                    3. Karya & Riwayat
+                </button>
+            </div>
+
+            <!-- Konten Scrollable Tab -->
+            <div class="flex-1 overflow-y-auto p-6 space-y-6">
+
+                <!-- TAB 1: DESAIN & TEMA -->
+                <div id="studio-tab-design" class="studio-tab-content space-y-6">
+                    <!-- Pilihan Skema Warna Aksen -->
+                    <div>
+                        <label class="block text-xs font-mono font-bold theme-text-primary uppercase tracking-wider mb-3">
+                            Skema Warna Aksen
+                        </label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="color-presets-grid">
+                            <!-- Diisi via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Mode Tampilan (Dark vs Light) -->
+                    <div>
+                        <label class="block text-xs font-mono font-bold theme-text-primary uppercase tracking-wider mb-3">
+                            Mode Tampilan Layar
+                        </label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="setThemeMode('dark')" id="mode-btn-dark" class="p-3.5 rounded-2xl glass border-2 flex items-center gap-3 text-left transition-all cursor-pointer">
+                                <div class="w-9 h-9 rounded-xl bg-slate-900 text-cyan-400 flex items-center justify-center shrink-0">
+                                    <i data-lucide="moon" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold theme-text-primary">Dark Obsidian</div>
+                                    <div class="text-[10px] theme-text-muted">Futuristik Gelap</div>
+                                </div>
+                            </button>
+                            <button onclick="setThemeMode('light')" id="mode-btn-light" class="p-3.5 rounded-2xl glass border-2 flex items-center gap-3 text-left transition-all cursor-pointer">
+                                <div class="w-9 h-9 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center shrink-0">
+                                    <i data-lucide="sun" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold theme-text-primary">Clean Light Tech</div>
+                                    <div class="text-[10px] theme-text-muted">Minimalis Terang</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Gaya Kartu (Glassmorphism vs Solid) -->
+                    <div>
+                        <label class="block text-xs font-mono font-bold theme-text-primary uppercase tracking-wider mb-3">
+                            Gaya Elemen Kartu
+                        </label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="setCardStyle('glass')" id="card-btn-glass" class="p-3.5 rounded-2xl glass border-2 flex items-center gap-3 text-left transition-all cursor-pointer">
+                                <div class="w-9 h-9 rounded-xl bg-accent-soft text-accent flex items-center justify-center shrink-0">
+                                    <i data-lucide="layers" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold theme-text-primary">Glassmorphism</div>
+                                    <div class="text-[10px] theme-text-muted">Transparan Blur</div>
+                                </div>
+                            </button>
+                            <button onclick="setCardStyle('solid')" id="card-btn-solid" class="p-3.5 rounded-2xl glass border-2 flex items-center gap-3 text-left transition-all cursor-pointer">
+                                <div class="w-9 h-9 rounded-xl bg-accent-sec-soft text-accent-sec flex items-center justify-center shrink-0">
+                                    <i data-lucide="square" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold theme-text-primary">Solid Minimal</div>
+                                    <div class="text-[10px] theme-text-muted">Tegas & Bersih</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Bentuk Bingkai & Posisi Foto Profil -->
+                    <div class="pt-2 border-t theme-border space-y-4">
+                        <label class="block text-xs font-mono font-bold theme-text-primary uppercase tracking-wider">
+                            Bentuk Bingkai Foto Profil
+                        </label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button onclick="setPhotoShape('rounded')" id="shape-btn-rounded" class="p-2.5 rounded-xl glass border-2 text-center transition-all cursor-pointer">
+                                <div class="text-xs font-bold theme-text-primary">Rounded</div>
+                                <div class="text-[10px] theme-text-muted">Modern</div>
+                            </button>
+                            <button onclick="setPhotoShape('circle')" id="shape-btn-circle" class="p-2.5 rounded-xl glass border-2 text-center transition-all cursor-pointer">
+                                <div class="text-xs font-bold theme-text-primary">Lingkaran</div>
+                                <div class="text-[10px] theme-text-muted">Klasik</div>
+                            </button>
+                            <button onclick="setPhotoShape('hexagon')" id="shape-btn-hexagon" class="p-2.5 rounded-xl glass border-2 text-center transition-all cursor-pointer">
+                                <div class="text-xs font-bold theme-text-primary">Hexagon</div>
+                                <div class="text-[10px] theme-text-muted">Futuristik</div>
+                            </button>
+                        </div>
+
+                        <div>
+                            <div class="flex items-center justify-between text-[11px] font-mono theme-text-muted mb-1.5">
+                                <span>Posisi Vertikal Wajah (Framing)</span>
+                                <span id="photo-pos-label" class="text-accent font-bold">22%</span>
+                            </div>
+                            <input type="range" id="edit-photo-pos" min="0" max="60" value="22" oninput="setPhotoPosition(this.value)" class="w-full accent-cyan-500 cursor-pointer">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: BIODATA & PROFIL -->
+                <div id="studio-tab-bio" class="studio-tab-content hidden space-y-4">
+                    <!-- Unggah / Ganti Foto Profil -->
+                    <div class="p-4 rounded-2xl glass border-accent space-y-3">
+                        <div class="flex items-center gap-3.5">
+                            <img id="studio-photo-preview" src="1000183986_c14b42db7cdb06929ba31b392a1295cc-22_8_2025, 11.20.42.jpg" alt="Preview Foto" class="w-14 h-16 rounded-xl object-cover border border-white/20 shrink-0" style="object-position: center 22%;">
+                            <div class="flex-1 min-w-0">
+                                <div class="text-xs font-bold theme-text-primary">Foto Profil Pribadi</div>
+                                <p class="text-[11px] theme-text-muted mt-0.5">Unggah foto baru (JPG/PNG/WebP). Otomatis tertanam saat ekspor HTML.</p>
+                                <div class="mt-2 flex flex-wrap gap-2">
+                                    <label class="px-3 py-1.5 rounded-lg btn-accent-gradient text-[11px] font-semibold inline-flex items-center gap-1.5 cursor-pointer">
+                                        <i data-lucide="upload" class="w-3.5 h-3.5"></i>
+                                        <span>Pilih Foto Baru</span>
+                                        <input type="file" id="upload-photo-input" accept="image/*" onchange="handlePhotoUpload(event)" class="hidden">
+                                    </label>
+                                    <button onclick="resetProfilePhoto()" class="px-2.5 py-1.5 rounded-lg glass text-[11px] font-mono theme-text-secondary hover:text-accent cursor-pointer">
+                                        Foto Awal
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[11px] font-mono theme-text-muted mb-1">Nama Lengkap</label>
+                            <input type="text" id="edit-name" oninput="syncBioFromForm()" class="w-full px-3.5 py-2.5 rounded-xl theme-input text-xs">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-mono theme-text-muted mb-1">Inisial Logo (2 Huruf)</label>
+                            <input type="text" id="edit-initials" maxlength="3" oninput="syncBioFromForm()" class="w-full px-3.5 py-2.5 rounded-xl theme-input text-xs uppercase">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-mono theme-text-muted mb-1">Gelar / Jabatan Utama</label>
+                        <input type="text" id="edit-role" oninput="syncBioFromForm()" class="w-full px-3.5 py-2.5 rounded-xl theme-input text-xs">
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-mono theme-text-muted mb-1">Status Ketersediaan Kerja</label>
+                        <input type="text" id="edit-status" oninput="syncBioFromForm()" class="w-full px-3.5 py-2.5 rounded-xl theme-input text-xs">
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-mono theme-text-muted mb-1">Tagline Singkat (Hero)</label>
+                        <textarea id="edit-tagline" rows="2" oninput="syncBioFromForm()" class="w-full px-3.5 py-2.5 rounded-xl theme-input text-xs resize-none"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-mono theme-text-muted mb-1">Judul Bagian Tentang Saya</label>
+                        <input type="text" id="edit-about-headline" oninput="syncBioFromForm()" class="w-full px-3.5 py-2.5 rounded-xl theme-input text-xs">
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-mono theme-text-muted mb-1">Deskripsi Lengkap Tentang Saya</label>
+                        <textarea id="edit-about-bio" rows="4" oninput="syncBioFromForm()" class="w-full px-3.5 py-2.5 rounded-xl theme-input text-xs resize-none"></textarea>
+                    </div>
+
+                    <!-- Angka Statistik -->
+                    <div class="pt-2 border-t theme-border">
+                        <label class="block text-[11px] font-mono font-bold text-accent mb-2">ANGKA STATISTIK PENCAPAIAN</label>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                            <div>
+                                <label class="block text-[10px] theme-text-muted mb-1">Pengalaman</label>
+                                <input type="text" id="edit-stat-exp" oninput="syncBioFromForm()" class="w-full px-2.5 py-2 rounded-lg theme-input text-xs">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] theme-text-muted mb-1">Proyek</label>
+                                <input type="text" id="edit-stat-projects" oninput="syncBioFromForm()" class="w-full px-2.5 py-2 rounded-lg theme-input text-xs">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] theme-text-muted mb-1">Klien</label>
+                                <input type="text" id="edit-stat-clients" oninput="syncBioFromForm()" class="w-full px-2.5 py-2 rounded-lg theme-input text-xs">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] theme-text-muted mb-1">Sertifikasi</label>
+                                <input type="text" id="edit-stat-awards" oninput="syncBioFromForm()" class="w-full px-2.5 py-2 rounded-lg theme-input text-xs">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kontak & Media Sosial -->
+                    <div class="pt-2 border-t theme-border space-y-3">
+                        <label class="block text-[11px] font-mono font-bold text-accent">KONTAK & TAUTAN SOSIAL</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[10px] theme-text-muted mb-1">Lokasi / Kota</label>
+                                <input type="text" id="edit-location" oninput="syncBioFromForm()" class="w-full px-3 py-2 rounded-xl theme-input text-xs">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] theme-text-muted mb-1">Nomor Telepon / WA</label>
+                                <input type="text" id="edit-phone" oninput="syncBioFromForm()" class="w-full px-3 py-2 rounded-xl theme-input text-xs">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] theme-text-muted mb-1">Email Resmi</label>
+                            <input type="email" id="edit-email" oninput="syncBioFromForm()" class="w-full px-3 py-2 rounded-xl theme-input text-xs">
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            <div>
+                                <label class="block text-[10px] theme-text-muted mb-1">URL GitHub</label>
+                                <input type="url" id="edit-github" oninput="syncBioFromForm()" class="w-full px-2.5 py-2 rounded-lg theme-input text-xs">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] theme-text-muted mb-1">URL LinkedIn</label>
+                                <input type="url" id="edit-linkedin" oninput="syncBioFromForm()" class="w-full px-2.5 py-2 rounded-lg theme-input text-xs">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] theme-text-muted mb-1">URL Website / IG</label>
+                                <input type="url" id="edit-website" oninput="syncBioFromForm()" class="w-full px-2.5 py-2 rounded-lg theme-input text-xs">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: KELOLA KARYA, KEAHLIAN & RIWAYAT -->
+                <div id="studio-tab-items" class="studio-tab-content hidden space-y-6">
+                    
+                    <!-- Sub-section: Tambah Keahlian -->
+                    <div class="p-4 rounded-2xl glass space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono font-bold text-accent uppercase">Keahlian Teknis</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            <select id="new-skill-cat" class="px-2.5 py-2 rounded-lg theme-input text-xs">
+                                <option value="0">Frontend & UI/UX</option>
+                                <option value="1">Backend & Cloud</option>
+                                <option value="2">AI & Data Science</option>
+                                <option value="3">Tools & DevOps</option>
+                            </select>
+                            <input type="text" id="new-skill-name" placeholder="Nama Skill (mis: Vue.js)" class="px-2.5 py-2 rounded-lg theme-input text-xs">
+                            <div class="flex gap-1.5">
+                                <input type="number" id="new-skill-level" min="10" max="100" value="90" class="w-16 px-2 py-2 rounded-lg theme-input text-xs">
+                                <button onclick="addSkillItem()" class="flex-1 px-3 py-2 rounded-lg btn-accent-gradient text-xs font-semibold cursor-pointer">+ Tambah</button>
+                            </div>
+                        </div>
+                        <div id="studio-skills-list" class="max-h-36 overflow-y-auto space-y-1.5 pt-2 border-t theme-border"></div>
+                    </div>
+
+                    <!-- Sub-section: Tambah Proyek Unggulan -->
+                    <div class="p-4 rounded-2xl glass space-y-3">
+                        <span class="block text-xs font-mono font-bold text-accent uppercase">Proyek Unggulan</span>
+                        <div class="space-y-2">
+                            <div class="grid grid-cols-2 gap-2">
+                                <input type="text" id="new-proj-title" placeholder="Judul Proyek *" class="px-3 py-2 rounded-lg theme-input text-xs">
+                                <select id="new-proj-cat" class="px-3 py-2 rounded-lg theme-input text-xs">
+                                    <option value="Web App">Web App</option>
+                                    <option value="AI/ML">AI/ML</option>
+                                    <option value="Mobile/UI">Mobile/UI</option>
+                                </select>
+                            </div>
+                            <input type="text" id="new-proj-summary" placeholder="Deskripsi singkat proyek *" class="w-full px-3 py-2 rounded-lg theme-input text-xs">
+                            <div class="flex gap-2">
+                                <input type="text" id="new-proj-tech" placeholder="Teknologi (pisahkan koma: React, Go)" class="flex-1 px-3 py-2 rounded-lg theme-input text-xs">
+                                <button onclick="addProjectItem()" class="px-4 py-2 rounded-lg btn-accent-gradient text-xs font-semibold cursor-pointer">+ Proyek</button>
+                            </div>
+                        </div>
+                        <div id="studio-projects-list" class="max-h-40 overflow-y-auto space-y-1.5 pt-2 border-t theme-border"></div>
+                    </div>
+
+                    <!-- Sub-section: Tambah Pengalaman Kerja -->
+                    <div class="p-4 rounded-2xl glass space-y-3">
+                        <span class="block text-xs font-mono font-bold text-accent uppercase">Pengalaman Kerja</span>
+                        <div class="space-y-2">
+                            <div class="grid grid-cols-2 gap-2">
+                                <input type="text" id="new-exp-role" placeholder="Posisi / Jabatan *" class="px-3 py-2 rounded-lg theme-input text-xs">
+                                <input type="text" id="new-exp-company" placeholder="Nama Perusahaan *" class="px-3 py-2 rounded-lg theme-input text-xs">
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <input type="text" id="new-exp-period" placeholder="Periode (2024 — Sekarang)" class="px-3 py-2 rounded-lg theme-input text-xs">
+                                <input type="text" id="new-exp-loc" placeholder="Lokasi (Jakarta)" class="px-3 py-2 rounded-lg theme-input text-xs">
+                            </div>
+                            <div class="flex gap-2">
+                                <input type="text" id="new-exp-desc" placeholder="Pencapaian utama selama bekerja *" class="flex-1 px-3 py-2 rounded-lg theme-input text-xs">
+                                <button onclick="addExperienceItem()" class="px-4 py-2 rounded-lg btn-accent-gradient text-xs font-semibold cursor-pointer">+ Kerja</button>
+                            </div>
+                        </div>
+                        <div id="studio-exp-list" class="max-h-36 overflow-y-auto space-y-1.5 pt-2 border-t theme-border"></div>
+                    </div>
+
+                    <!-- Sub-section: Tambah Pendidikan -->
+                    <div class="p-4 rounded-2xl glass space-y-3">
+                        <span class="block text-xs font-mono font-bold text-accent uppercase">Riwayat Pendidikan</span>
+                        <div class="space-y-2">
+                            <input type="text" id="new-edu-degree" placeholder="Gelar & Jurusan (mis: S1 Teknik Informatika) *" class="w-full px-3 py-2 rounded-lg theme-input text-xs">
+                            <div class="grid grid-cols-2 gap-2">
+                                <input type="text" id="new-edu-inst" placeholder="Nama Universitas / Sekolah *" class="px-3 py-2 rounded-lg theme-input text-xs">
+                                <input type="text" id="new-edu-period" placeholder="Tahun (2018 — 2022)" class="px-3 py-2 rounded-lg theme-input text-xs">
+                            </div>
+                            <div class="flex gap-2">
+                                <input type="text" id="new-edu-gpa" placeholder="IPK / Predikat (mis: IPK 3.85)" class="flex-1 px-3 py-2 rounded-lg theme-input text-xs">
+                                <button onclick="addEducationItem()" class="px-4 py-2 rounded-lg btn-accent-gradient text-xs font-semibold cursor-pointer">+ Studi</button>
+                            </div>
+                        </div>
+                        <div id="studio-edu-list" class="max-h-36 overflow-y-auto space-y-1.5 pt-2 border-t theme-border"></div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Footer Studio: Simpan, Reset & Ekspor File HTML Mandiri -->
+            <div class="p-4 sm:p-5 border-t theme-border shrink-0 space-y-2.5" style="background: var(--bg-main);">
+                <button onclick="exportStandaloneHTML()" class="w-full py-3 px-4 rounded-xl btn-accent-gradient font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.99] cursor-pointer">
+                    <i data-lucide="download" class="w-4 h-4"></i>
+                    <span>Unduh HTML Kustom (.html)</span>
+                </button>
+                <div class="flex items-center justify-between gap-2">
+                    <span class="text-[11px] font-mono text-emerald-500 flex items-center gap-1">
+                        <i data-lucide="check" class="w-3.5 h-3.5"></i> Tersimpan otomatis di browser
+                    </span>
+                    <button onclick="resetToDefault()" class="px-3 py-1.5 rounded-lg glass text-[11px] font-mono text-rose-400 hover:bg-rose-500/15 transition-colors cursor-pointer">
+                        Reset ke Default
+                    </button>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- =====================================================================
+         TOAST NOTIFICATION
+         ===================================================================== -->
+    <div id="toast-notification" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 hidden items-center gap-3 px-5 py-3.5 rounded-2xl glass border-accent theme-text-primary text-xs sm:text-sm font-medium shadow-2xl transition-all no-print">
+        <i data-lucide="check-circle-2" class="w-5 h-5 text-accent shrink-0"></i>
+        <span id="toast-message">Perubahan berhasil disimpan!</span>
+    </div>
+
+    <!-- =====================================================================
+         JAVASCRIPT KONFIGURASI DATA & MESIN KUSTOMISASI REAL-TIME
+         ===================================================================== -->
+    <script>
+        /**
+         * ===================================================================
+         * KONFIGURASI DEFAULT PORTOFOLIO (DAPAT DIEDIT DI TEXT EDITOR ATAU UI)
+         * ===================================================================
+         */
+        const DEFAULT_PORTFOLIO_CONFIG = {
+            design: {
+                presetId: "cyan",
+                mode: "dark",       // "dark" atau "light"
+                cardStyle: "glass", // "glass" atau "solid"
+                photoShape: "rounded", // "rounded", "circle", atau "hexagon"
+                photoPosY: 22       // persentase posisi vertikal wajah (0-60)
+            },
+            bio: {
+                photoUrl: "1000183986_c14b42db7cdb06929ba31b392a1295cc-22_8_2025, 11.20.42.jpg",
+                name: "Arya Wijaya",
+                initials: "AW",
+                role: "Senior Full-Stack Developer & AI Engineer",
+                status: "Tersedia untuk Proyek Strategis & Konsultasi AI",
+                tagline: "Merancang arsitektur aplikasi web berskala tinggi, antarmuka pengguna futuristik yang presisi, serta integrasi sistem kecerdasan buatan (LLM & Machine Learning) untuk mentransformasi ide kompleks menjadi produk digital berdampak.",
+                aboutHeadline: "Membangun masa depan web yang cerdas, cepat, dan berpusat pada manusia.",
+                aboutBio: "Dengan pengalaman lebih dari 6 tahun di industri teknologi, saya telah membantu berbagai perusahaan rintisan (startup) hingga korporasi merancang aplikasi web modern dan mengintegrasikan kecerdasan buatan ke dalam alur kerja bisnis mereka.\n\nSaya percaya bahwa kode yang bersih harus berjalan beriringan dengan desain visual yang elegan. Setiap piksel dan setiap baris algoritma dirancang untuk memberikan kecepatan akses maksimal serta kemudahan pemeliharaan jangka panjang.",
+                location: "Jakarta, Indonesia",
+                email: "arya@wijayatech.id",
+                phone: "+62 812-3456-7890",
+                github: "https://github.com",
+                linkedin: "https://linkedin.com",
+                website: "https://instagram.com",
+                stats: {
+                    exp: "6+",
+                    projects: "48+",
+                    clients: "32+",
+                    awards: "11"
+                }
+            },
+            skills: [
+                {
+                    category: "Frontend & UI/UX",
+                    icon: "layout",
+                    items: [
+                        { name: "React / Next.js (App Router)", level: 96 },
+                        { name: "TypeScript & Modern JavaScript", level: 95 },
+                        { name: "Tailwind CSS & Design Systems", level: 94 },
+                        { name: "Figma Prototyping & Aksesibilitas", level: 88 }
+                    ]
+                },
+                {
+                    category: "Backend & Cloud Architecture",
+                    icon: "server",
+                    items: [
+                        { name: "Node.js, Go (Golang) & GraphQL", level: 92 },
+                        { name: "PostgreSQL, Redis & Vector DB", level: 90 },
+                        { name: "Microservices & Event-Driven", level: 85 },
+                        { name: "AWS, GCP & Serverless", level: 88 }
+                    ]
+                },
+                {
+                    category: "AI & Data Science",
+                    icon: "cpu",
+                    items: [
+                        { name: "LLM Orchestration (RAG & AI Agents)", level: 93 },
+                        { name: "Python, PyTorch & Scikit-Learn", level: 89 },
+                        { name: "Computer Vision & NLP", level: 84 },
+                        { name: "Real-time Analytics Pipeline", level: 87 }
+                    ]
+                },
+                {
+                    category: "Tools & DevOps",
+                    icon: "git-branch",
+                    items: [
+                        { name: "Docker & Kubernetes", level: 89 },
+                        { name: "CI/CD (GitHub Actions, GitLab CI)", level: 93 },
+                        { name: "Observability (Grafana, Prometheus)", level: 86 },
+                        { name: "Linux & Keamanan Aplikasi Web", level: 88 }
+                    ]
+                }
+            ],
+            projects: [
+                {
+                    id: 101,
+                    title: "NexusAI Enterprise Copilot",
+                    category: "AI/ML",
+                    year: "2026",
+                    summary: "Platform asisten AI berbasis Retrieval-Augmented Generation (RAG) untuk analisis dokumen hukum dan finansial perusahaan secara real-time.",
+                    challenge: "Perusahaan kesulitan mencari informasi akurat dari puluhan ribu dokumen internal tanpa risiko kebocoran data.",
+                    solution: "Membangun arsitektur hybrid-search vector database terenkripsi yang memangkas waktu riset tim hingga 78%.",
+                    tech: ["Next.js", "Python", "FastAPI", "LangChain", "PostgreSQL"],
+                    svgType: "neural",
+                    demoUrl: "https://example.com",
+                    repoUrl: "https://github.com"
+                },
+                {
+                    id: 102,
+                    title: "AetherCloud FinOps Dashboard",
+                    category: "Web App",
+                    year: "2025",
+                    summary: "Dasbor pemantauan biaya multi-cloud (AWS & GCP) interaktif dengan prediksi anomali pengeluaran otomatis.",
+                    challenge: "Tim infrastruktur sering mengalami lonjakan tagihan cloud tak terduga karena minimnya visibilitas harian.",
+                    solution: "Merancang visualisasi telemetri real-time berbasis WebSockets yang menghemat biaya cloud klien sebesar 31%.",
+                    tech: ["React", "TypeScript", "Tailwind CSS", "Go", "WebSockets"],
+                    svgType: "analytics",
+                    demoUrl: "https://example.com",
+                    repoUrl: "https://github.com"
+                },
+                {
+                    id: 103,
+                    title: "Kinetix UI Design System",
+                    category: "Mobile/UI",
+                    year: "2025",
+                    summary: "Pustaka komponen antarmuka lintas platform (Web & Mobile) dengan dukungan tema adaptif dan animasi mikro 60fps.",
+                    challenge: "Inkonsistensi tampilan dan duplikasi kode pada 6 produk digital berbeda dalam satu ekosistem.",
+                    solution: "Menciptakan 55+ komponen modular terdokumentasi penuh yang mempercepat rilis fitur baru hingga 2,5x lipat.",
+                    tech: ["React Native", "TypeScript", "Storybook", "Figma Tokens"],
+                    svgType: "ui",
+                    demoUrl: "https://example.com",
+                    repoUrl: "https://github.com"
+                }
+            ],
+            experience: [
+                {
+                    role: "Lead Full-Stack & AI Engineer",
+                    company: "Nusantara Quantum Tech",
+                    period: "2024 — Sekarang",
+                    location: "Jakarta (Hybrid)",
+                    highlights: [
+                        "Memimpin tim 9 insinyur dalam pengembangan platform SaaS berbasis AI dengan 150.000+ pengguna aktif.",
+                        "Merancang pipeline RAG & agen AI yang meningkatkan efisiensi operasional klien sebesar 65%."
+                    ]
+                },
+                {
+                    role: "Senior Frontend & Product Engineer",
+                    company: "Veloce Digital Studio",
+                    period: "2021 — 2024",
+                    location: "Bandung / Remote",
+                    highlights: [
+                        "Membangun sistem desain terpadu (Design System) yang diadopsi oleh 12 aplikasi web dan mobile.",
+                        "Mengembangkan dasbor analitik real-time berkinerja tinggi untuk sektor fintech dan logistik."
+                    ]
+                }
+            ],
+            education: [
+                {
+                    degree: "Magister Ilmu Komputer (M.Kom) — Kecerdasan Buatan",
+                    institution: "Universitas Indonesia",
+                    period: "2021 — 2023",
+                    gpa: "IPK 3.92 / 4.00",
+                    highlights: [
+                        "Tesis: Optimasi Arsitektur Transformer Efisien untuk Pemrosesan Bahasa Alami Bahasa Indonesia."
+                    ]
+                },
+                {
+                    degree: "Sarjana Teknik Informatika (S.T.)",
+                    institution: "Institut Teknologi Bandung (ITB)",
+                    period: "2016 — 2020",
+                    gpa: "IPK 3.81 / 4.00",
+                    highlights: [
+                        "Juara 1 Kompetisi Hackathon Nasional Pengembangan Solusi Smart City."
+                    ]
+                }
+            ],
+            certifications: [
+                { title: "AWS Certified Solutions Architect", issuer: "Amazon Web Services", year: "2025", icon: "cloud" },
+                { title: "Deep Learning Specialization", issuer: "DeepLearning.AI", year: "2024", icon: "brain-circuit" },
+                { title: "Google Cloud Professional ML Engineer", issuer: "Google Cloud", year: "2024", icon: "cpu" },
+                { title: "Certified Kubernetes Developer", issuer: "CNCF", year: "2023", icon: "shield-check" }
+            ]
+        };
+
+        /* INJECTED_USER_DATA_START */
+        let APP_STATE = null;
+        /* INJECTED_USER_DATA_END */
+
+        const STORAGE_KEY = "portofolio_studio_state_v2026";
+
+        /**
+         * SKEMA WARNA AKSEN PRESET
+         */
+        const COLOR_PRESETS = [
+            { id: "cyan", name: "Cyber Cyan", primary: "#06B6D4", secondary: "#8B5CF6", rgb: "6, 182, 212", secRgb: "139, 92, 246" },
+            { id: "violet", name: "Royal Violet", primary: "#8B5CF6", secondary: "#EC4899", rgb: "139, 92, 246", secRgb: "236, 72, 153" },
+            { id: "emerald", name: "Emerald Matrix", primary: "#10B981", secondary: "#06B6D4", rgb: "16, 185, 129", secRgb: "6, 182, 212" },
+            { id: "amber", name: "Sunset Amber", primary: "#F59E0B", secondary: "#EF4444", rgb: "245, 158, 11", secRgb: "239, 68, 68" },
+            { id: "rose", name: "Rose Gold", primary: "#F43F5E", secondary: "#A855F7", rgb: "244, 63, 94", secRgb: "168, 85, 247" }
+        ];
+
+        /**
+         * INISIALISASI STATE DARI LOCALSTORAGE ATAU DEFAULT
+         */
+        function loadState() {
+            if (APP_STATE) return; // Jika sudah ada data tertanam dari hasil ekspor HTML
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    APP_STATE = {
+                        ...JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_CONFIG)),
+                        ...parsed,
+                        design: { ...DEFAULT_PORTFOLIO_CONFIG.design, ...(parsed.design || {}) },
+                        bio: { ...DEFAULT_PORTFOLIO_CONFIG.bio, ...(parsed.bio || {}) }
+                    };
+                } else {
+                    APP_STATE = JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_CONFIG));
+                }
+            } catch (e) {
+                APP_STATE = JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_CONFIG));
+            }
+        }
+
+        function saveState() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(APP_STATE));
+            } catch (e) {
+                console.warn("Gagal menyimpan ke LocalStorage:", e);
+            }
+        }
+
+        /**
+         * PENERAPAN DESAIN & TEMA SECARA REAL-TIME
+         */
+        function applyDesignSettings() {
+            const { presetId, mode, cardStyle, photoShape = "rounded", photoPosY = 22 } = APP_STATE.design;
+            const preset = COLOR_PRESETS.find(p => p.id === presetId) || COLOR_PRESETS[0];
+
+            const root = document.documentElement;
+            root.style.setProperty('--accent-primary', preset.primary);
+            root.style.setProperty('--accent-secondary', preset.secondary);
+            root.style.setProperty('--accent-rgb', preset.rgb);
+            root.style.setProperty('--accent-sec-rgb', preset.secRgb);
+
+            root.setAttribute('data-theme', mode);
+            root.setAttribute('data-card-style', cardStyle);
+            root.setAttribute('data-photo-shape', photoShape);
+            if (mode === 'dark') {
+                root.classList.add('dark');
+            } else {
+                root.classList.remove('dark');
+            }
+
+            // Terapkan posisi framing vertikal pada semua elemen foto profil
+            document.querySelectorAll('.profile-photo-img').forEach(img => {
+                img.style.objectPosition = `center ${photoPosY}%`;
+            });
+            const posSlider = document.getElementById('edit-photo-pos');
+            const posLabel = document.getElementById('photo-pos-label');
+            if (posSlider) posSlider.value = photoPosY;
+            if (posLabel) posLabel.textContent = `${photoPosY}%`;
+
+            // Perbarui indikator pada terminal Hero
+            const termTheme = document.getElementById('term-theme-name');
+            const termMode = document.getElementById('term-mode-name');
+            const termCard = document.getElementById('term-card-name');
+            if (termTheme) termTheme.textContent = preset.name.toUpperCase();
+            if (termMode) termMode.textContent = mode.toUpperCase();
+            if (termCard) termCard.textContent = cardStyle.toUpperCase();
+
+            // Perbarui tampilan aktif di Studio Drawer
+            renderColorPresets();
+            updateStudioToggleButtons();
+        }
+
+        function setPhotoShape(shape) {
+            APP_STATE.design.photoShape = shape;
+            saveState();
+            applyDesignSettings();
+        }
+
+        function setPhotoPosition(posY) {
+            APP_STATE.design.photoPosY = parseInt(posY, 10);
+            saveState();
+            applyDesignSettings();
+        }
+
+        function setThemeMode(mode) {
+            APP_STATE.design.mode = mode;
+            saveState();
+            applyDesignSettings();
+        }
+
+        function setCardStyle(style) {
+            APP_STATE.design.cardStyle = style;
+            saveState();
+            applyDesignSettings();
+        }
+
+        function renderColorPresets() {
+            const container = document.getElementById('color-presets-grid');
+            if (!container) return;
+            container.innerHTML = COLOR_PRESETS.map(p => {
+                const isActive = APP_STATE.design.presetId === p.id;
+                return `
+                    <button onclick="setColorPreset('${p.id}')" class="p-3 rounded-2xl glass border-2 ${isActive ? 'border-accent bg-accent-soft' : 'border-transparent'} flex items-center gap-3 text-left transition-all cursor-pointer">
+                        <span class="w-6 h-6 rounded-full shrink-0 shadow-md" style="background: linear-gradient(135deg, ${p.primary}, ${p.secondary});"></span>
+                        <span class="text-xs font-semibold theme-text-primary">${p.name}</span>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function updateStudioToggleButtons() {
+            const { mode, cardStyle, photoShape = "rounded" } = APP_STATE.design;
+            const darkBtn = document.getElementById('mode-btn-dark');
+            const lightBtn = document.getElementById('mode-btn-light');
+            const glassBtn = document.getElementById('card-btn-glass');
+            const solidBtn = document.getElementById('card-btn-solid');
+
+            if (darkBtn && lightBtn) {
+                darkBtn.classList.toggle('border-accent', mode === 'dark');
+                darkBtn.classList.toggle('border-transparent', mode !== 'dark');
+                lightBtn.classList.toggle('border-accent', mode === 'light');
+                lightBtn.classList.toggle('border-transparent', mode !== 'light');
+            }
+            if (glassBtn && solidBtn) {
+                glassBtn.classList.toggle('border-accent', cardStyle === 'glass');
+                glassBtn.classList.toggle('border-transparent', cardStyle !== 'glass');
+                solidBtn.classList.toggle('border-accent', cardStyle === 'solid');
+                solidBtn.classList.toggle('border-transparent', cardStyle !== 'solid');
+            }
+
+            ['rounded', 'circle', 'hexagon'].forEach(s => {
+                const btn = document.getElementById(`shape-btn-${s}`);
+                if (btn) {
+                    btn.classList.toggle('border-accent', photoShape === s);
+                    btn.classList.toggle('border-transparent', photoShape !== s);
+                }
+            });
+        }
+
+        /**
+         * RENDER BIODATA & FOTO PROFIL KE SELURUH HALAMAN
+         */
+        function renderBio() {
+            const b = APP_STATE.bio;
+            const photoSrc = b.photoUrl || DEFAULT_PORTFOLIO_CONFIG.bio.photoUrl;
+
+            // Perbarui semua gambar profil
+            const heroPhoto = document.getElementById('hero-profile-photo');
+            const aboutPhoto = document.getElementById('about-profile-photo');
+            const studioPreview = document.getElementById('studio-photo-preview');
+            if (heroPhoto) heroPhoto.src = photoSrc;
+            if (aboutPhoto) aboutPhoto.src = photoSrc;
+            if (studioPreview) {
+                studioPreview.src = photoSrc;
+                studioPreview.style.objectPosition = `center ${APP_STATE.design.photoPosY || 22}%`;
+            }
+
+            document.getElementById('page-title').textContent = `${b.name} — ${b.role}`;
+            document.getElementById('nav-initials').textContent = b.initials || b.name.slice(0, 2).toUpperCase();
+            document.getElementById('nav-name').textContent = b.name;
+            document.getElementById('hero-status').textContent = b.status;
+            document.getElementById('hero-name').textContent = b.name;
+            document.getElementById('hero-role').innerHTML = formatRoleWithGradient(b.role);
+            document.getElementById('hero-tagline').textContent = b.tagline;
+
+            // Kartu Identitas Hero
+            const cardName = document.getElementById('card-profile-name');
+            const cardLoc = document.getElementById('card-profile-location');
+            if (cardName) cardName.textContent = b.name;
+            if (cardLoc) cardLoc.textContent = b.location;
+
+            // Terminal Hero
+            document.getElementById('term-name').textContent = b.name;
+            document.getElementById('term-location').textContent = b.location;
+            document.getElementById('term-exp').textContent = parseInt(b.stats.exp) || 5;
+            document.getElementById('term-projects').textContent = parseInt(b.stats.projects) || 20;
+
+            // Tentang Saya
+            document.getElementById('about-headline').textContent = b.aboutHeadline;
+            document.getElementById('about-bio').textContent = b.aboutBio;
+            document.getElementById('about-location').textContent = b.location;
+            document.getElementById('about-email').textContent = b.email;
+            document.getElementById('about-phone').textContent = b.phone;
+
+            // Statistik
+            document.getElementById('stat-exp').textContent = b.stats.exp;
+            document.getElementById('stat-projects').textContent = b.stats.projects;
+            document.getElementById('stat-clients').textContent = b.stats.clients;
+            document.getElementById('stat-awards').textContent = b.stats.awards;
+
+            // Kontak & Footer
+            document.getElementById('contact-email-display').textContent = b.email;
+            document.getElementById('contact-phone-display').textContent = b.phone;
+            document.getElementById('social-github').href = b.github || "#";
+            document.getElementById('social-linkedin').href = b.linkedin || "#";
+            document.getElementById('social-website').href = b.website || "#";
+            document.getElementById('footer-name').textContent = b.name;
+        }
+
+        /**
+         * UNGGAH & GANTI FOTO PROFIL SECARA MANDIRI (KONVERSI BASE64 TERKOMPRESI)
+         */
+        function handlePhotoUpload(event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    // Kompresi otomatis agar tetap ringan di localStorage & file ekspor HTML
+                    const canvas = document.createElement('canvas');
+                    const maxDim = 720;
+                    let w = img.width;
+                    let h = img.height;
+                    if (w > maxDim || h > maxDim) {
+                        if (w > h) {
+                            h = Math.round((h * maxDim) / w);
+                            w = maxDim;
+                        } else {
+                            w = Math.round((w * maxDim) / h);
+                            h = maxDim;
+                        }
+                    }
+                    canvas.width = w;
+                    canvas.height = h;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, w, h);
+
+                    APP_STATE.bio.photoUrl = canvas.toDataURL('image/jpeg', 0.88);
+                    saveState();
+                    renderBio();
+                    showToast("Foto profil berhasil diperbarui!");
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function resetProfilePhoto() {
+            APP_STATE.bio.photoUrl = DEFAULT_PORTFOLIO_CONFIG.bio.photoUrl;
+            saveState();
+            renderBio();
+            showToast("Foto profil dikembalikan ke foto awal.");
+        }
+            if (glassBtn && solidBtn) {
+                glassBtn.classList.toggle('border-accent', cardStyle === 'glass');
+                glassBtn.classList.toggle('border-transparent', cardStyle !== 'glass');
+                solidBtn.classList.toggle('border-accent', cardStyle === 'solid');
+                solidBtn.classList.toggle('border-transparent', cardStyle !== 'solid');
+            }
+        }
+
+        /**
+         * RENDER BIODATA KE SELURUH HALAMAN & SINKRONISASI FORM STUDIO
+         */
+        function renderBio() {
+            const b = APP_STATE.bio;
+            document.getElementById('page-title').textContent = `${b.name} — ${b.role}`;
+            document.getElementById('nav-initials').textContent = b.initials || b.name.slice(0, 2).toUpperCase();
+            document.getElementById('nav-name').textContent = b.name;
+            document.getElementById('hero-status').textContent = b.status;
+            document.getElementById('hero-name').textContent = b.name;
+            document.getElementById('hero-role').innerHTML = formatRoleWithGradient(b.role);
+            document.getElementById('hero-tagline').textContent = b.tagline;
+
+            // Terminal Hero
+            document.getElementById('term-name').textContent = b.name;
+            document.getElementById('term-location').textContent = b.location;
+            document.getElementById('term-exp').textContent = parseInt(b.stats.exp) || 5;
+            document.getElementById('term-projects').textContent = parseInt(b.stats.projects) || 20;
+
+            // Tentang Saya
+            document.getElementById('about-headline').textContent = b.aboutHeadline;
+            document.getElementById('about-bio').textContent = b.aboutBio;
+            document.getElementById('about-location').textContent = b.location;
+            document.getElementById('about-email').textContent = b.email;
+            document.getElementById('about-phone').textContent = b.phone;
+
+            // Statistik
+            document.getElementById('stat-exp').textContent = b.stats.exp;
+            document.getElementById('stat-projects').textContent = b.stats.projects;
+            document.getElementById('stat-clients').textContent = b.stats.clients;
+            document.getElementById('stat-awards').textContent = b.stats.awards;
+
+            // Kontak & Footer
+            document.getElementById('contact-email-display').textContent = b.email;
+            document.getElementById('contact-phone-display').textContent = b.phone;
+            document.getElementById('social-github').href = b.github || "#";
+            document.getElementById('social-linkedin').href = b.linkedin || "#";
+            document.getElementById('social-website').href = b.website || "#";
+            document.getElementById('footer-name').textContent = b.name;
+        }
+
+        function formatRoleWithGradient(roleText) {
+            const words = roleText.trim().split(' ');
+            if (words.length <= 2) return `<span class="text-gradient">${roleText}</span>`;
+            const first = words[0];
+            const middle = words.slice(1, 3).join(' ');
+            const rest = words.slice(3).join(' ');
+            return `${first} <span class="text-gradient">${middle}</span> ${rest}`;
+        }
+
+        function populateBioForm() {
+            const b = APP_STATE.bio;
+            document.getElementById('edit-name').value = b.name;
+            document.getElementById('edit-initials').value = b.initials;
+            document.getElementById('edit-role').value = b.role;
+            document.getElementById('edit-status').value = b.status;
+            document.getElementById('edit-tagline').value = b.tagline;
+            document.getElementById('edit-about-headline').value = b.aboutHeadline;
+            document.getElementById('edit-about-bio').value = b.aboutBio;
+            document.getElementById('edit-stat-exp').value = b.stats.exp;
+            document.getElementById('edit-stat-projects').value = b.stats.projects;
+            document.getElementById('edit-stat-clients').value = b.stats.clients;
+            document.getElementById('edit-stat-awards').value = b.stats.awards;
+            document.getElementById('edit-location').value = b.location;
+            document.getElementById('edit-phone').value = b.phone;
+            document.getElementById('edit-email').value = b.email;
+            document.getElementById('edit-github').value = b.github;
+            document.getElementById('edit-linkedin').value = b.linkedin;
+            document.getElementById('edit-website').value = b.website;
+        }
+
+        function syncBioFromForm() {
+            const b = APP_STATE.bio;
+            b.name = document.getElementById('edit-name').value || "Nama Anda";
+            b.initials = document.getElementById('edit-initials').value.toUpperCase() || "NA";
+            b.role = document.getElementById('edit-role').value || "Profesional Digital";
+            b.status = document.getElementById('edit-status').value || "Tersedia untuk Kolaborasi";
+            b.tagline = document.getElementById('edit-tagline').value;
+            b.aboutHeadline = document.getElementById('edit-about-headline').value;
+            b.aboutBio = document.getElementById('edit-about-bio').value;
+            b.stats.exp = document.getElementById('edit-stat-exp').value || "1+";
+            b.stats.projects = document.getElementById('edit-stat-projects').value || "10+";
+            b.stats.clients = document.getElementById('edit-stat-clients').value || "5+";
+            b.stats.awards = document.getElementById('edit-stat-awards').value || "2";
+            b.location = document.getElementById('edit-location').value;
+            b.phone = document.getElementById('edit-phone').value;
+            b.email = document.getElementById('edit-email').value;
+            b.github = document.getElementById('edit-github').value;
+            b.linkedin = document.getElementById('edit-linkedin').value;
+            b.website = document.getElementById('edit-website').value;
+
+            saveState();
+            renderBio();
+        }
+
+        /**
+         * RENDER & KELOLA KEAHLIAN (SKILLS)
+         */
+        function renderSkills() {
+            const container = document.getElementById('skills-grid');
+            container.innerHTML = APP_STATE.skills.map((group, idx) => `
+                <div class="theme-card rounded-3xl p-6 sm:p-8">
+                    <div class="flex items-center gap-3.5 mb-6">
+                        <div class="w-11 h-11 rounded-2xl ${idx % 2 === 0 ? 'bg-accent-soft text-accent' : 'bg-accent-sec-soft text-accent-sec'} flex items-center justify-center">
+                            <i data-lucide="${group.icon || 'cpu'}" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold theme-text-primary">${group.category}</h3>
+                    </div>
+                    <div class="space-y-4">
+                        ${group.items.map(skill => `
+                            <div>
+                                <div class="flex justify-between items-center text-xs sm:text-sm mb-1.5">
+                                    <span class="font-medium theme-text-primary">${skill.name}</span>
+                                    <span class="font-mono text-xs text-accent">${skill.level}%</span>
+                                </div>
+                                <div class="w-full h-2 rounded-full overflow-hidden" style="background: var(--input-bg);">
+                                    <div class="h-full rounded-full" style="width: ${skill.level}%; background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));"></div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+
+            // Render daftar kelola di Studio Drawer
+            const studioList = document.getElementById('studio-skills-list');
+            if (studioList) {
+                studioList.innerHTML = APP_STATE.skills.flatMap((g, catIdx) =>
+                    g.items.map((s, itemIdx) => `
+                        <div class="flex items-center justify-between text-xs px-2.5 py-1.5 rounded-lg glass">
+                            <span class="truncate theme-text-primary"><strong>[${g.category.split(' ')[0]}]</strong> ${s.name} (${s.level}%)</span>
+                            <button onclick="removeSkillItem(${catIdx}, ${itemIdx})" class="text-rose-400 hover:text-rose-300 font-mono ml-2 cursor-pointer">Hapus</button>
+                        </div>
+                    `)
+                ).join('');
+            }
+        }
+
+        function addSkillItem() {
+            const catIdx = parseInt(document.getElementById('new-skill-cat').value) || 0;
+            const name = document.getElementById('new-skill-name').value.trim();
+            const level = Math.min(100, Math.max(10, parseInt(document.getElementById('new-skill-level').value) || 85));
+            if (!name) {
+                showToast("Masukkan nama keahlian terlebih dahulu.");
+                return;
+            }
+            APP_STATE.skills[catIdx].items.push({ name, level });
+            document.getElementById('new-skill-name').value = "";
+            saveState();
+            renderSkills();
+            lucide.createIcons();
+            showToast(`Keahlian "${name}" ditambahkan!`);
+        }
+
+        function removeSkillItem(catIdx, itemIdx) {
+            APP_STATE.skills[catIdx].items.splice(itemIdx, 1);
+            saveState();
+            renderSkills();
+            lucide.createIcons();
+        }
+
+        /**
+         * GENERATOR SVG MODERN & RENDER PROYEK UNGGULAN
+         */
+        function getProjectSVG(type) {
+            const svgs = {
+                neural: `<svg viewBox="0 0 400 200" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-500">
+                    <circle cx="80" cy="60" r="6" fill="var(--accent-primary)"/><circle cx="80" cy="140" r="6" fill="var(--accent-primary)"/>
+                    <circle cx="200" cy="40" r="8" fill="var(--accent-secondary)"/><circle cx="200" cy="100" r="10" fill="var(--accent-primary)"/><circle cx="200" cy="160" r="8" fill="var(--accent-secondary)"/>
+                    <circle cx="320" cy="70" r="7" fill="var(--accent-primary)"/><circle cx="320" cy="130" r="7" fill="var(--accent-secondary)"/>
+                    <path d="M80 60 L200 40 M80 60 L200 100 M80 140 L200 100 M80 140 L200 160 M200 40 L320 70 M200 100 L320 70 M200 100 L320 130 M200 160 L320 130" stroke="var(--accent-primary)" stroke-opacity="0.6" stroke-width="1.5" fill="none"/>
+                </svg>`,
+                analytics: `<svg viewBox="0 0 400 200" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-500">
+                    <rect x="70" y="110" width="24" height="55" rx="6" fill="var(--accent-primary)" fill-opacity="0.45"/>
+                    <rect x="120" y="85" width="24" height="80" rx="6" fill="var(--accent-primary)" fill-opacity="0.7"/>
+                    <rect x="170" y="95" width="24" height="70" rx="6" fill="var(--accent-secondary)" fill-opacity="0.6"/>
+                    <rect x="220" y="55" width="24" height="110" rx="6" fill="var(--accent-secondary)" fill-opacity="0.85"/>
+                    <rect x="270" y="40" width="24" height="125" rx="6" fill="var(--accent-primary)" fill-opacity="0.9"/>
+                    <path d="M82 95 L132 70 L182 80 L232 42 L282 28" stroke="#10B981" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                </svg>`,
+                ui: `<svg viewBox="0 0 400 200" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-500">
+                    <rect x="75" y="35" width="135" height="130" rx="14" fill="var(--bg-surface)" stroke="var(--accent-primary)" stroke-opacity="0.6" stroke-width="1.5"/>
+                    <rect x="90" y="52" width="60" height="10" rx="5" fill="var(--accent-primary)" fill-opacity="0.8"/>
+                    <rect x="90" y="74" width="105" height="34" rx="8" fill="var(--accent-secondary)" fill-opacity="0.2"/>
+                    <rect x="90" y="120" width="52" height="24" rx="8" fill="var(--accent-secondary)"/>
+                    <rect x="225" y="55" width="100" height="95" rx="14" fill="var(--bg-surface)" stroke="var(--accent-secondary)" stroke-opacity="0.6" stroke-width="1.5"/>
+                    <circle cx="275" cy="95" r="18" stroke="var(--accent-primary)" stroke-width="3" fill="none"/>
+                </svg>`
+            };
+            return svgs[type] || svgs.neural;
+        }
+
+        let currentProjectFilter = 'all';
+
+        function renderProjects(filterCategory = currentProjectFilter) {
+            currentProjectFilter = filterCategory;
+            const filterContainer = document.getElementById('project-filters');
+            const categories = ['all', ...new Set(APP_STATE.projects.map(p => p.category))];
+
+            filterContainer.innerHTML = categories.map(cat => {
+                const active = cat === filterCategory;
+                return `
+                    <button onclick="renderProjects('${cat}')" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${active ? 'btn-accent-gradient' : 'theme-text-secondary hover:text-accent'}">
+                        ${cat === 'all' ? 'Semua' : cat}
+                    </button>
+                `;
+            }).join('');
+
+            const container = document.getElementById('projects-grid');
+            const filtered = filterCategory === 'all'
+                ? APP_STATE.projects
+                : APP_STATE.projects.filter(p => p.category === filterCategory);
+
+            container.innerHTML = filtered.map(project => `
+                <article onclick="openProjectModal(${project.id})" class="theme-card rounded-3xl overflow-hidden flex flex-col justify-between group cursor-pointer">
+                    <div>
+                        <div class="h-44 w-full relative overflow-hidden border-b theme-border" style="background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.16), rgba(var(--accent-sec-rgb), 0.2));">
+                            ${getProjectSVG(project.svgType)}
+                            <div class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full glass text-[11px] font-mono text-accent font-semibold">
+                                ${project.category}
+                            </div>
+                            <div class="absolute top-3.5 right-3.5 px-2.5 py-1 rounded-lg glass text-[11px] font-mono theme-text-secondary">
+                                ${project.year}
+                            </div>
+                        </div>
+
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold theme-text-primary group-hover:text-accent transition-colors flex items-center justify-between gap-2">
+                                <span>${project.title}</span>
+                                <i data-lucide="arrow-up-right" class="w-5 h-5 theme-text-muted group-hover:text-accent transition-all shrink-0"></i>
+                            </h3>
+                            <p class="theme-text-secondary text-sm mt-2.5 leading-relaxed line-clamp-3">
+                                ${project.summary}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="px-6 pb-6 pt-2 flex flex-wrap gap-1.5">
+                        ${project.tech.slice(0, 4).map(t => `
+                            <span class="px-2.5 py-1 rounded-lg glass font-mono text-[11px] theme-text-secondary">
+                                ${t}
+                            </span>
+                        `).join('')}
+                    </div>
+                </article>
+            `).join('');
+
+            // Render daftar proyek di Studio Drawer
+            const studioProjList = document.getElementById('studio-projects-list');
+            if (studioProjList) {
+                studioProjList.innerHTML = APP_STATE.projects.map((p, idx) => `
+                    <div class="flex items-center justify-between text-xs px-2.5 py-1.5 rounded-lg glass">
+                        <span class="truncate theme-text-primary"><strong>${p.title}</strong> (${p.category})</span>
+                        <button onclick="removeProjectItem(${idx})" class="text-rose-400 hover:text-rose-300 font-mono ml-2 cursor-pointer">Hapus</button>
+                    </div>
+                `).join('');
+            }
+
+            lucide.createIcons();
+        }
+
+        function addProjectItem() {
+            const title = document.getElementById('new-proj-title').value.trim();
+            const category = document.getElementById('new-proj-cat').value;
+            const summary = document.getElementById('new-proj-summary').value.trim();
+            const techRaw = document.getElementById('new-proj-tech').value.trim();
+
+            if (!title || !summary) {
+                showToast("Isi judul dan deskripsi singkat proyek.");
+                return;
+            }
+
+            const tech = techRaw ? techRaw.split(',').map(s => s.trim()).filter(Boolean) : ["Web Modern", "UI/UX"];
+            const svgTypes = ["neural", "analytics", "ui"];
+
+            APP_STATE.projects.unshift({
+                id: Date.now(),
+                title,
+                category,
+                year: new Date().getFullYear().toString(),
+                summary,
+                challenge: "Kebutuhan menghadirkan solusi digital yang cepat, intuitif, dan mudah digunakan oleh pengguna akhir.",
+                solution: "Merancang arsitektur aplikasi modern dengan antarmuka responsif dan performa tinggi.",
+                tech,
+                svgType: svgTypes[APP_STATE.projects.length % svgTypes.length],
+                demoUrl: "https://example.com",
+                repoUrl: "https://github.com"
+            });
+
+            document.getElementById('new-proj-title').value = "";
+            document.getElementById('new-proj-summary').value = "";
+            document.getElementById('new-proj-tech').value = "";
+
+            saveState();
+            renderProjects('all');
+            showToast(`Proyek "${title}" berhasil ditambahkan!`);
+        }
+
+        function removeProjectItem(idx) {
+            APP_STATE.projects.splice(idx, 1);
+            saveState();
+            renderProjects('all');
+        }
+
+        /**
+         * RENDER & KELOLA TIMELINE PENGALAMAN & PENDIDIKAN
+         */
+        function renderTimeline() {
+            const expContainer = document.getElementById('experience-timeline');
+            expContainer.innerHTML = APP_STATE.experience.map(item => `
+                <div class="relative group">
+                    <span class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full border-2 border-accent" style="background: var(--bg-main);"></span>
+                    <div class="theme-card rounded-2xl p-6">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+                            <span class="font-mono text-xs text-accent font-semibold">${item.period}</span>
+                            <span class="text-xs theme-text-muted">${item.location || ''}</span>
+                        </div>
+                        <h4 class="text-lg font-bold theme-text-primary">${item.role}</h4>
+                        <div class="text-sm font-semibold text-accent-sec mb-3">${item.company}</div>
+                        <ul class="space-y-2 text-xs sm:text-sm theme-text-secondary">
+                            ${item.highlights.map(point => `
+                                <li class="flex items-start gap-2">
+                                    <span class="text-accent mt-0.5">▹</span>
+                                    <span>${point}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `).join('');
+
+            const eduContainer = document.getElementById('education-timeline');
+            eduContainer.innerHTML = APP_STATE.education.map(item => `
+                <div class="relative group">
+                    <span class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full border-2" style="background: var(--bg-main); border-color: var(--accent-secondary);"></span>
+                    <div class="theme-card rounded-2xl p-6">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+                            <span class="font-mono text-xs text-accent-sec font-semibold">${item.period}</span>
+                            ${item.gpa ? `<span class="px-2.5 py-0.5 rounded-md bg-emerald-500/15 text-emerald-500 font-mono text-[11px] font-semibold">${item.gpa}</span>` : ''}
+                        </div>
+                        <h4 class="text-lg font-bold theme-text-primary">${item.degree}</h4>
+                        <div class="text-sm font-semibold text-accent mb-3">${item.institution}</div>
+                        <ul class="space-y-2 text-xs sm:text-sm theme-text-secondary">
+                            ${(item.highlights || []).map(point => `
+                                <li class="flex items-start gap-2">
+                                    <span class="text-accent-sec mt-0.5">▹</span>
+                                    <span>${point}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `).join('');
+
+            // Sinkronisasi daftar di Studio Drawer
+            const studioExpList = document.getElementById('studio-exp-list');
+            if (studioExpList) {
+                studioExpList.innerHTML = APP_STATE.experience.map((e, idx) => `
+                    <div class="flex items-center justify-between text-xs px-2.5 py-1.5 rounded-lg glass">
+                        <span class="truncate theme-text-primary"><strong>${e.role}</strong> — ${e.company}</span>
+                        <button onclick="removeExperienceItem(${idx})" class="text-rose-400 hover:text-rose-300 font-mono ml-2 cursor-pointer">Hapus</button>
+                    </div>
+                `).join('');
+            }
+
+            const studioEduList = document.getElementById('studio-edu-list');
+            if (studioEduList) {
+                studioEduList.innerHTML = APP_STATE.education.map((ed, idx) => `
+                    <div class="flex items-center justify-between text-xs px-2.5 py-1.5 rounded-lg glass">
+                        <span class="truncate theme-text-primary"><strong>${ed.degree}</strong> — ${ed.institution}</span>
+                        <button onclick="removeEducationItem(${idx})" class="text-rose-400 hover:text-rose-300 font-mono ml-2 cursor-pointer">Hapus</button>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function addExperienceItem() {
+            const role = document.getElementById('new-exp-role').value.trim();
+            const company = document.getElementById('new-exp-company').value.trim();
+            const period = document.getElementById('new-exp-period').value.trim() || "2025 — Sekarang";
+            const location = document.getElementById('new-exp-loc').value.trim() || "Indonesia";
+            const desc = document.getElementById('new-exp-desc').value.trim();
+
+            if (!role || !company || !desc) {
+                showToast("Lengkapi posisi, perusahaan, dan pencapaian kerja.");
+                return;
+            }
+
+            APP_STATE.experience.unshift({ role, company, period, location, highlights: [desc] });
+            document.getElementById('new-exp-role').value = "";
+            document.getElementById('new-exp-company').value = "";
+            document.getElementById('new-exp-desc').value = "";
+            saveState();
+            renderTimeline();
+            showToast("Pengalaman kerja berhasil ditambahkan!");
+        }
+
+        function removeExperienceItem(idx) {
+            APP_STATE.experience.splice(idx, 1);
+            saveState();
+            renderTimeline();
+        }
+
+        function addEducationItem() {
+            const degree = document.getElementById('new-edu-degree').value.trim();
+            const institution = document.getElementById('new-edu-inst').value.trim();
+            const period = document.getElementById('new-edu-period').value.trim() || "2018 — 2022";
+            const gpa = document.getElementById('new-edu-gpa').value.trim();
+
+            if (!degree || !institution) {
+                showToast("Lengkapi gelar/jurusan dan nama institusi pendidikan.");
+                return;
+            }
+
+            APP_STATE.education.unshift({
+                degree,
+                institution,
+                period,
+                gpa,
+                highlights: ["Menyelesaikan studi dengan fokus pada pengembangan teknologi dan inovasi."]
+            });
+            document.getElementById('new-edu-degree').value = "";
+            document.getElementById('new-edu-inst').value = "";
+            document.getElementById('new-edu-gpa').value = "";
+            saveState();
+            renderTimeline();
+            showToast("Riwayat pendidikan berhasil ditambahkan!");
+        }
+
+        function removeEducationItem(idx) {
+            APP_STATE.education.splice(idx, 1);
+            saveState();
+            renderTimeline();
+        }
+
+        /**
+         * RENDER SERTIFIKASI
+         */
+        function renderCertifications() {
+            const container = document.getElementById('certifications-grid');
+            container.innerHTML = APP_STATE.certifications.map((cert, idx) => `
+                <div class="theme-card rounded-2xl p-5 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-10 h-10 rounded-xl ${idx % 2 === 0 ? 'bg-accent-soft text-accent' : 'bg-accent-sec-soft text-accent-sec'} flex items-center justify-center">
+                                <i data-lucide="${cert.icon || 'award'}" class="w-5 h-5"></i>
+                            </div>
+                            <span class="font-mono text-xs theme-text-muted">${cert.year}</span>
+                        </div>
+                        <h4 class="font-bold theme-text-primary text-sm sm:text-base leading-snug">${cert.title}</h4>
+                    </div>
+                    <div class="mt-4 pt-3 border-t theme-border text-xs theme-text-muted font-mono">
+                        ${cert.issuer}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        /**
+         * MODAL DETAIL PROYEK
+         */
+        function openProjectModal(projectId) {
+            const project = APP_STATE.projects.find(p => p.id === projectId);
+            if (!project) return;
+
+            const modal = document.getElementById('project-modal');
+            const banner = document.getElementById('modal-banner');
+            banner.style.background = "linear-gradient(135deg, rgba(var(--accent-rgb), 0.18), rgba(var(--accent-sec-rgb), 0.22))";
+            banner.innerHTML = getProjectSVG(project.svgType);
+
+            document.getElementById('modal-category').textContent = project.category;
+            document.getElementById('modal-year').textContent = project.year;
+            document.getElementById('modal-title').textContent = project.title;
+            document.getElementById('modal-desc').textContent = project.summary;
+            document.getElementById('modal-challenge').textContent = project.challenge;
+            document.getElementById('modal-solution').textContent = project.solution;
+            document.getElementById('modal-demo-link').href = project.demoUrl || "#";
+            document.getElementById('modal-repo-link').href = project.repoUrl || "#";
+
+            document.getElementById('modal-tech').innerHTML = project.tech.map(t => `
+                <span class="px-3 py-1.5 rounded-xl glass font-mono text-xs text-accent font-medium">${t}</span>
+            `).join('');
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            lucide.createIcons();
+        }
+
+        function closeProjectModal() {
+            const modal = document.getElementById('project-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('project-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeProjectModal();
+        });
+
+        /**
+         * KONTROL DRAWER STUDIO KUSTOMISASI
+         */
+        function openStudioDrawer(initialTab = 'design') {
+            populateBioForm();
+            const drawer = document.getElementById('studio-drawer');
+            drawer.classList.remove('hidden');
+            switchStudioTab(initialTab);
+            lucide.createIcons();
+        }
+
+        function closeStudioDrawer() {
+            document.getElementById('studio-drawer').classList.add('hidden');
+        }
+
+        function switchStudioTab(tabName) {
+            document.querySelectorAll('.studio-tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.studio-tab-btn').forEach(btn => {
+                btn.classList.remove('border-accent', 'text-accent', 'font-semibold');
+                btn.classList.add('border-transparent', 'theme-text-muted', 'font-medium');
+            });
+
+            document.getElementById(`studio-tab-${tabName}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-btn-${tabName}`);
+            activeBtn.classList.add('border-accent', 'text-accent', 'font-semibold');
+            activeBtn.classList.remove('border-transparent', 'theme-text-muted', 'font-medium');
+        }
+
+        /**
+         * FITUR EKSPOR FILE HTML MANDIRI & RESET KE DEFAULT
+         */
+        function exportStandaloneHTML() {
+            // Tutup drawer sementara agar snapshot DOM bersih
+            closeStudioDrawer();
+
+            setTimeout(() => {
+                let htmlSource = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+                const serializedState = JSON.stringify(APP_STATE, null, 2);
+
+                // Tanamkan state terbaru pengguna langsung ke dalam kode sumber HTML yang diekspor
+                const markerRegex = /\/\* INJECTED_USER_DATA_START \*\/[\s\S]*?\/\* INJECTED_USER_DATA_END \*\//;
+                const replacement = `/* INJECTED_USER_DATA_START */\n        let APP_STATE = ${serializedState};\n        /* INJECTED_USER_DATA_END */`;
+                htmlSource = htmlSource.replace(markerRegex, replacement);
+
+                const blob = new Blob([htmlSource], { type: "text/html;charset=utf-8" });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                const fileNameSlug = (APP_STATE.bio.name || "portofolio").toLowerCase().replace(/[^a-z0-9]+/g, "-");
+                a.href = url;
+                a.download = `portofolio-${fileNameSlug}.html`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                showToast("File HTML portofolio kustom Anda berhasil diunduh!");
+            }, 150);
+        }
+
+        function resetToDefault() {
+            localStorage.removeItem(STORAGE_KEY);
+            APP_STATE = JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_CONFIG));
+            saveState();
+            applyDesignSettings();
+            renderBio();
+            renderSkills();
+            renderProjects('all');
+            renderTimeline();
+            renderCertifications();
+            populateBioForm();
+            lucide.createIcons();
+            showToast("Seluruh desain & data dikembalikan ke pengaturan awal.");
+        }
+
+        /**
+         * UTILITAS UMUM: TOAST, SALIN EMAIL, CETAK CV, FORM KONTAK
+         */
+        let toastTimer;
+        function showToast(msg) {
+            const toast = document.getElementById('toast-notification');
+            document.getElementById('toast-message').textContent = msg;
+            toast.classList.remove('hidden');
+            toast.classList.add('flex');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.add('hidden');
+                toast.classList.remove('flex');
+            }, 3400);
+        }
+
+        function copyEmail() {
+            const emailText = APP_STATE.bio.email;
+            const tempInput = document.createElement('input');
+            tempInput.value = emailText;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast(`Email "${emailText}" berhasil disalin!`);
+        }
+
+        function handleDownloadCV() {
+            showToast("Menyiapkan tampilan CV siap cetak / simpan PDF...");
+            setTimeout(() => window.print(), 500);
+        }
+
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('sender-name').value.trim();
+            if (!name) return;
+            showToast(`Terima kasih ${name}! Pesan Anda telah terkirim.`);
+            this.reset();
+        });
+
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+
+        // Tutup modal/drawer dengan tombol Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeProjectModal();
+                closeStudioDrawer();
+            }
+        });
+
+        /**
+         * ANIMASI CANVAS NEURAL NETWORK INTERAKTIF (MENGIKUTI WARNA AKSEN AKTIF)
+         */
+        function initNeuralCanvas() {
+            const canvas = document.getElementById('neural-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let width, height, particles = [];
+
+            function resize() {
+                width = canvas.width = canvas.parentElement.offsetWidth;
+                height = canvas.height = canvas.parentElement.offsetHeight;
+                const count = Math.min(Math.floor((width * height) / 16500), 60);
+                particles = Array.from({ length: count }, (_, i) => ({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.45,
+                    vy: (Math.random() - 0.5) * 0.45,
+                    r: Math.random() * 2 + 1.2,
+                    isPrimary: i % 2 === 0
+                }));
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                const styles = getComputedStyle(document.documentElement);
+                const rgb1 = styles.getPropertyValue('--accent-rgb').trim() || '6, 182, 212';
+                const rgb2 = styles.getPropertyValue('--accent-sec-rgb').trim() || '139, 92, 246';
+
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < 0 || p.x > width) p.vx *= -1;
+                    if (p.y < 0 || p.y > height) p.vy *= -1;
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = p.isPrimary ? `rgba(${rgb1}, 0.75)` : `rgba(${rgb2}, 0.75)`;
+                    ctx.fill();
+
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const p2 = particles[j];
+                        const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                        if (dist < 140) {
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            ctx.strokeStyle = `rgba(${rgb1}, ${(1 - dist / 140) * 0.25})`;
+                            ctx.lineWidth = 1;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+
+            window.addEventListener('resize', resize);
+            resize();
+            animate();
+        }
+
+        function initScrollReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('active');
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+
+        /**
+         * INISIALISASI APLIKASI SAAT HALAMAN DIMUAT
+         */
+        window.onload = function() {
+            loadState();
+            applyDesignSettings();
+            renderBio();
+            renderSkills();
+            renderProjects('all');
+            renderTimeline();
+            renderCertifications();
+            lucide.createIcons();
+            initNeuralCanvas();
+            initScrollReveal();
+        };
+    </script>
+</body>
+</html>
